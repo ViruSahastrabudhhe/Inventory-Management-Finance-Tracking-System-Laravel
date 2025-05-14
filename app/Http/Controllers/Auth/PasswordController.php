@@ -27,7 +27,7 @@ class PasswordController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return back()->with(['status' => __($status)]);
+            return redirect()->route('view-login')->with(['status' => __($status)]);
         } else {
             return back()->withErrors(['email' => __($status)]);
         }

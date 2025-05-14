@@ -9,16 +9,17 @@ Route::get('/', function () {
     return view('auth.landing');
 })->name('landing');
 
-Route::view('/login', 'auth.login')->name('view-login');
-Route::view('/register', 'auth.register')->name('view-register');
-Route::view('/dashboard', 'home.dashboard')->name('view-dashboard');
+Route::view('/dashboard', 'home.dashboard')->middleware('auth')->name('view-dashboard');
 
 Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('view-login');
     Route::post('/login', 'login')->name('auth-login');
     Route::post('/logout', 'logout')->name('auth-logout');
 });
-Route::post('/register', RegisterController::class)->name('auth-register');
-
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/sign-up', 'index')->middleware('guest')->name('view-register');
+    Route::post('/register', 'store')->middleware('guest')->name('auth-register');
+});
 Route::controller(PasswordController::class)->group(function () {
     Route::get('/request-password-reset', 'viewForgotPass')->middleware('guest')->name('password.request');
     Route::post('/forgot-password', 'sendForgotPasswordRequest')->middleware('guest')->name('password.email');

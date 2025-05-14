@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Auth;
 class RegisterController extends Controller
 
 {
-    public function __invoke(Request $request): RedirectResponse
+    public function index() {
+        return view('auth.register');
+    }
+    
+    public function store(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'name' => ['required'],

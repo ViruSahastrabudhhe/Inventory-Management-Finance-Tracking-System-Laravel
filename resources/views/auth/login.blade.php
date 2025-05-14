@@ -10,6 +10,10 @@
         <button type="submit">Submit</button>
     </form>
     <p>
+        Forgot password?
+        <a href="{{ route('password.request') }}" >Send request here!</a>
+    </p>
+    <p>
         Don't have an account?
         <a href="{{ route('view-register') }}" >Sign up here!</a>
     </p>

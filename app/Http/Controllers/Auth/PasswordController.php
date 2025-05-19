@@ -12,10 +12,10 @@ use Illuminate\Support\Str;
 class PasswordController extends Controller
 {
     public function viewForgotPass() {
-        return view('auth.forgotpass');
+        return view('auth.forgot-pass');
     }
-    public function viewResetPass(String $email, String $token) {
-        return view('auth.resetpass', ['email'=> $email, 'token' => $token]);
+    public function viewResetPass(String $token) {
+        return view('auth.reset-pass', ['token' => $token]);
     }
 
     public function sendForgotPasswordRequest(Request $request)

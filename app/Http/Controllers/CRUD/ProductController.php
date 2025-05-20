@@ -12,21 +12,17 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     public function dashboard() {
-        $products=Product::all();
+        $products=Product::where('user_id', Auth::user()->id)->get();
         $total = DB::table('products')->count();
         return view("home.dashboard", ["products" => $products, "total" => $total]);
     }
 
     public function viewAddProduct() {
-        $products = Product::all();
+        $products=Product::where('user_id', Auth::user()->id)->get();
         return view("home.crud.add-product", ["products" => $products]);
     }
     
     public function store(Request $request) {
-        // if (Auth::user() && ! Auth::user()->email_verified_at) {
-        //     return redirect(route('home.dashboard'));;
-        // }
-
         $data = $request->validate([
             'name' => 'required',
             'qty' => 'required',
@@ -48,12 +44,12 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product) {
-        $products=Product::all();
+        $products=Product::where('user_id', Auth::user()->id)->get();
         return view('home.crud.edit-product', ['product' => $product]);
     }
 
     public function update(Request $request, Product $product) {
-        $products=Product::all();
+        $products=Product::where('user_id', Auth::user()->id)->get();
         
         $data = $request->validate([
             'name' => 'required',

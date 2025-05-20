@@ -7,20 +7,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function dashboard() {
         $products=Product::all();
-        return view("home.dashboard", ["products" => $products]);
+        $total = DB::table('products')->count();
+        return view("home.dashboard", ["products" => $products, "total" => $total]);
     }
 
-    public function index() {
+    public function viewAddProduct() {
         $products = Product::all();
         return view("home.crud.add-product", ["products" => $products]);
     }
     
     public function store(Request $request) {
+        // if (Auth::user() && ! Auth::user()->email_verified_at) {
+        //     return redirect(route('home.dashboard'));;
+        // }
+
         $data = $request->validate([
             'name' => 'required',
             'qty' => 'required',

@@ -14,11 +14,11 @@ Route::get('/', function () {
 
 Route::controller(ProductController::class)->group(function (){
     Route::get('/dashboard', 'dashboard')->middleware('auth')->name('view-dashboard');
-    Route::get('/add-product', 'index')->middleware('auth')->name('view-add-product');
-    Route::post('/add-product', 'store')->middleware('auth')->name('product.add');
-    Route::get('/edit-product/{product}', 'edit')->middleware('auth')->name('view-edit-product');
-    Route::post('/update-product/{product}', 'update')->middleware('auth')->name('product.update');
-    Route::post('/delete-product/{product}', 'destroy')->middleware('auth')->name('product.destroy');
+    Route::get('/add-product', 'viewAddProduct')->middleware('auth')->name('view-add-product');
+    Route::post('/add-product', 'store')->middleware(['auth', 'verified'])->name('product.add');
+    Route::get('/edit-product/{product}', 'edit')->middleware(['auth', 'verified'])->name('view-edit-product');
+    Route::post('/update-product/{product}', 'update')->middleware(['auth', 'verified'])->name('product.update');
+    Route::post('/delete-product/{product}', 'destroy')->middleware(['auth', 'verified'])->name('product.destroy');
 });
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('view-login');

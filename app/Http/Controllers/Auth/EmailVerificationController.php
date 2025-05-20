@@ -10,7 +10,7 @@ class EmailVerificationController extends Controller
 {
     //
     public function index() {
-        return view("auth.verify-email");
+        return redirect()->route('view-dashboard');
     }
 
     public function verify(EmailVerificationRequest $request) {

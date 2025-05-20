@@ -22,6 +22,9 @@
         </a>
     </div>
     <div>
+        <h1><?php echo $total ?></h1>
+    </div>
+    <div>
         <table>
             <tr>
                 <th>#</th>

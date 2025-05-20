@@ -17,7 +17,7 @@
     @endif
 
     <div>
-        <a href="">
+        <a href="{{ route('view-add-product') }}">
             <button >Add product</button>
         </a>
     </div>
@@ -30,15 +30,27 @@
                 <th>Price</th>
                 <th>Description</th>
                 <th>Date created</th>
+                <th>Actions</th>
             </tr>
+            @foreach ($products as $key=>$p)
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><?php echo $key+1 ?></td>
+                <td><?php echo $p->name ?></td>
+                <td><?php echo $p->qty ?></td>
+                <td><?php echo $p->price ?></td>
+                <td><?php echo $p->description ?></td>
+                <td><?php echo $p->created_at ?></td>
+                <td>
+                <a href="{{ route('view-edit-product', ['product' => $p]) }}">
+                    <button>Edit</button>
+                </a>
+                <form action="{{ route('product.destroy', ['product' => $p]) }}" method="POST">
+                    @csrf
+                    <button type="submit">Delete</button>
+                </form>
+                </td>
             </tr>
+            @endforeach
         </table>
     </div>
 </x-layout>

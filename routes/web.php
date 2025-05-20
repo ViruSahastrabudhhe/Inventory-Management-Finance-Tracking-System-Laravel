@@ -10,13 +10,15 @@ use App\Http\Middleware\isAdmin;
 
 Route::get('/', function () {
     return view('auth.landing');
-})->name('landing');    
-
-Route::view('/dashboard', 'home.dashboard')->middleware('auth')->name('view-dashboard');
-Route::view('/admin-dashboard', 'home::home.admin.admin-dashboard')->name('view-admin-dashboard');
+})->name('landing');        
 
 Route::controller(ProductController::class)->group(function (){
-
+    Route::get('/dashboard', 'dashboard')->middleware('auth')->name('view-dashboard');
+    Route::get('/add-product', 'index')->middleware('auth')->name('view-add-product');
+    Route::post('/add-product', 'store')->middleware('auth')->name('product.add');
+    Route::get('/edit-product/{product}', 'edit')->middleware('auth')->name('view-edit-product');
+    Route::post('/update-product/{product}', 'update')->middleware('auth')->name('product.update');
+    Route::post('/delete-product/{product}', 'destroy')->middleware('auth')->name('product.destroy');
 });
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('view-login');

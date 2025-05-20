@@ -10,25 +10,31 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    public function dashboard() {
+        $products=Product::all();
+        return view("home.dashboard", ["products" => $products]);
+    }
+
     public function index() {
         $products = Product::all();
-        return view("home.dashboard", ["products" => $products]);
+        return view("home.crud.add-product", ["products" => $products]);
     }
     
     public function store(Request $request) {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required',
             'qty' => 'required',
             'price' => 'required',
             'description' => 'nullable',
         ]);
 
-        $product = new Product;
-
-        $product->name=$request->name;
-        $product->qty=$request->qty;
-        $product->price=$request->price;
-        $product->description=$request->description;
+        $product=new Product;
+        
+        $product->name = $request->name;
+        $product->qty = $request->qty;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->user_id = Auth::id();
 
         $product->save();
 
@@ -37,24 +43,26 @@ class ProductController extends Controller
 
     public function edit(Product $product) {
         $products=Product::all();
-        return view('funs.edit', ['products' => $products, 'product' => $product]);
+        return view('home.crud.edit-product', ['product' => $product]);
     }
 
     public function update(Request $request, Product $product) {
         $products=Product::all();
         
         $data = $request->validate([
-            'ProductName' => 'required',
-            'ProductEmail' => 'required',
+            'name' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+            'description' => 'required',
         ]);
         
         $product->update($data);
 
-        return redirect(route('home', ["products" => $products]))->with('success', "Successfully updated user!");
+        return redirect(route('view-dashboard', ["products" => $products]))->with('success', "Successfully updated product!");
     }
 
     public function destroy(Product $product) {
         $product->delete();
-        return redirect('/');
+        return redirect(route('view-dashboard'))->with('success', "Successfully deleted product!");
     }
 }

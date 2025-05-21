@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\CRUD\ProductController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Middleware\isAdmin;
 
 Route::get('/', function () {

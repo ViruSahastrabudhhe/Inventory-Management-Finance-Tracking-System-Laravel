@@ -5,6 +5,7 @@
 
     <h1>Reset password!</h1>
     <x-form-errors/>
+    <x-form-messages/>
     <form action="{{ route('password.update') }}" method="POST">
         @csrf
         <input type="email" name="email" placeholder="Email">

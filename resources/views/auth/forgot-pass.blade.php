@@ -5,6 +5,7 @@
 
     <h1>Forgot password!</h1>
     <x-form-errors/>
+    <x-form-messages/>
     <form action="{{ route('password.email') }}" method="POST">
         @csrf
         <input type="email" name="email" placeholder="Email">

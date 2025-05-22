@@ -3,6 +3,7 @@
     
     <h1>Login!</h1>
     <x-form-errors/>
+    <x-form-messages/>
     <form action="{{ route('auth-login') }}" method="POST">
         @csrf
         <input type="email" name="email" placeholder="Email">

@@ -12,7 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append(EnsureUserIsAdmin::class);
+        $middleware->alias([
+            'admin' => EnsureUserIsAdmin::class
+        ]);
         $middleware->redirectGuestsTo('/login');
         $middleware->trustHosts(at: ['127.0.0.1:8000']);
     })

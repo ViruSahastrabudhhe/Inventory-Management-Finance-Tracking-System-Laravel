@@ -9,17 +9,17 @@ use Illuminate\Http\Request;
 class EmailVerificationController extends Controller
 {
     //
-    public function index() {
-        return redirect()->route('view-dashboard');
+    public function index() {   
+        return redirect(route('view-dashboard'))->with("error", "Please verify your email first!");
     }
 
     public function verify(EmailVerificationRequest $request) {
         $request->fulfill();
-        return redirect()->route('view-dashboard');
+        return redirect()->route('view-dashboard')-with("success", "Successfully verified your email!");
     }
 
     public function notify(Request $request) {
         $request->user()->sendEmailVerificationNotification();
-        return back()->with('message', 'Verification link sent!');
+        return back()->with('success', 'Verification link sent!');
     }
 }

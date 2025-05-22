@@ -3,6 +3,7 @@
 
     <h1>Register!</h1>
     <x-form-errors/>
+    <x-form-messages/>
     <form action="{{ route('auth-register') }}" method="POST">
         @csrf
         <input type="text" name="name" placeholder="Name">

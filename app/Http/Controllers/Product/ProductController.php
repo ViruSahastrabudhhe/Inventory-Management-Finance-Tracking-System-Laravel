@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Product;
 
 use App\Models\Product;
+use App\Models\User;
+use App\Models\RoleUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +15,7 @@ class ProductController extends Controller
 {
     public function dashboard() {
         $products=Product::where('user_id', Auth::user()->id)->get();
-        $total = DB::table('products')->count();
+        $total = Product::where('user_id', Auth::user()->id)->count();
         return view("home.dashboard", ["products" => $products, "total" => $total]);
     }
 

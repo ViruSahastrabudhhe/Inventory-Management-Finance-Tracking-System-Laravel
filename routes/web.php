@@ -12,6 +12,8 @@ Route::get('/', function () {
     return view('auth.landing');
 })->name('landing');        
 
+Route::view('/admin-dashboard', 'home.admin.admin-dashboard')->middleware(['auth', 'admin'])->name('view-admin-dashboard');
+
 Route::controller(ProductController::class)->group(function (){
     Route::get('/dashboard', 'dashboard')->middleware('auth')->name('view-dashboard');
     Route::get('/add-product', 'viewAddProduct')->middleware(['auth', 'verified'])->name('view-add-product');

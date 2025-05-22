@@ -26,7 +26,7 @@ class RegisterController extends Controller
 
         $user=User::create($credentials);
         $this->createUser($user);
-        event(new Registered($user));
+        // event(new Registered($user));
 
         Auth::login($user);
 
@@ -34,7 +34,7 @@ class RegisterController extends Controller
     }
 
     public function createUser(User $user) {
-        $roleUser = new RoleUser();
+        $roleUser = new RoleUser;
 
         $roleUser->user_id = $user->id;
         $roleUser->role_id = 2;

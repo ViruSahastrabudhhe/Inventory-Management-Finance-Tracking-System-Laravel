@@ -17,7 +17,11 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
+        $user = RoleUser::where('user_id', Auth::id())->pluck('role_id')[0];
+        if ($user!=1) {
+            session()->flash("error", "YOU ARE NOT ADMIN!");
+            return redirect()->route("view-dashboard");
+        }
         return $next($request);
     }
 }

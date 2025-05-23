@@ -15,7 +15,7 @@ class EmailVerificationController extends Controller
 
     public function verify(EmailVerificationRequest $request) {
         $request->fulfill();
-        return redirect()->route('view-dashboard')-with("success", "Successfully verified your email!");
+        return redirect(route('view-dashboard'))->with("success", "Successfully verified your email!");
     }
 
     public function notify(Request $request) {

@@ -18,7 +18,7 @@ class PasswordController extends Controller
         return view('auth.reset-pass', ['token' => $token]);
     }
 
-    public function sendForgotPasswordRequest(Request $request)
+    public function notify(Request $request)
     {
         $request->validate(['email' => 'required|email']);
 
@@ -33,7 +33,7 @@ class PasswordController extends Controller
         }
     }
 
-    public function updatePassword(Request $request) {
+    public function update(Request $request) {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',

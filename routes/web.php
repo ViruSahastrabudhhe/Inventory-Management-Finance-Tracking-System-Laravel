@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Product\ProductController;
-use App\Http\Middleware\isAdmin;
 
 Route::get('/', function () {
     return view('auth.landing');
@@ -33,9 +32,9 @@ Route::controller(RegisterController::class)->group(function () {
 });
 Route::controller(PasswordController::class)->group(function () {
     Route::get('/forgot-password', 'viewForgotPass')->middleware('guest')->name('password.request');
-    Route::post('/forgot-password', 'sendForgotPasswordRequest')->middleware('guest')->name('password.email');
+    Route::post('/forgot-password', 'notify')->middleware('guest')->name('password.email');
     Route::get('/change-password/{token}', 'viewResetPass')->middleware('guest')->name('password.reset');
-    Route::post('/reset-password', 'updatePassword')->middleware('guest')->name('password.update');
+    Route::post('/reset-password', 'update')->middleware('guest')->name('password.update');
 });
 Route::controller(EmailVerificationController::class)->group(function () {
     Route::get('/verify-email', 'index')->middleware('auth')->name('verification.notice');

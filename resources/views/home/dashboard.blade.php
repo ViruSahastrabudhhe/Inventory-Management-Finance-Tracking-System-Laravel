@@ -1,6 +1,7 @@
 <x-layout>
-    <x-slot:title>
-        Dashboard
+    <x-slot:title>Dashboard</x-slot>
+
+    <x-slot:navlinks>
     </x-slot>
 
     <h1>Hello, {{  Auth::user()->name }}!</h1>

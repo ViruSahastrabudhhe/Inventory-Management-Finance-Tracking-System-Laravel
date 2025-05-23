@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            
         });
         Schema::create('purchase_details', function (Blueprint $table) {
             $table->id();

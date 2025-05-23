@@ -21,8 +21,6 @@ return new class extends Migration
         Schema::table('purchases', function (Blueprint $table) {
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });

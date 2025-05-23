@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('qty');
-            $table->integer('price');
+            $table->integer('buying_price');
+            $table->integer('selling_price');
             $table->text('description')->nullable();
             $table->timestamps();
         });

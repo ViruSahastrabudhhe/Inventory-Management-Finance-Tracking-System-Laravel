@@ -37,7 +37,7 @@ class RegisterController extends Controller
         $roleUser = new RoleUser;
 
         $roleUser->user_id = $user->id;
-        $roleUser->role_id = 2;
+        $roleUser->role_id = 3;
 
         $roleUser->save();
     }

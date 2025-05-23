@@ -48,12 +48,13 @@
 
             <div class="register-form">
                 <h2>Register</h2>
-                <form method="POST" id="register-form">
+                <form action="{{ route('auth-register') }}" method="POST" id="register-form">
+                    @csrf
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="text" name="name" placeholder="Name">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="username" placeholder="Username" required>
+                        <input type="email" name="email" placeholder="Email" required>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" placeholder="Password" required>

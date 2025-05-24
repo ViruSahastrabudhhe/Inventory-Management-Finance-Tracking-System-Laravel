@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout.unauthenticated>
     <x-slot:title>Landing</x-slot>
 
     <div id="toast-container"></div>
@@ -14,7 +14,6 @@
             <h1>Cadiz<br>Duck Farm</h1>
             <p>Quality Duck Meat,<br>Farm-Fresh Flavors</p>
             <a href="../templates/inventory.php" class="btn-primary">Inventory</a>
-
         </div>
     </section>
 
@@ -41,10 +40,10 @@
                     </div>
                     <button type="submit" class="btn-submit">Submit</button>
                     <!-- Forgot Password Link -->
-                    <div class="form-group forgot-password-link">
-                        <a href="{{ route('password.request') }}" >Forgot password</a>
-                    </div>
                 </form>
+                <div class="form-group forgot-password-link">
+                    <a href="{{ route('password.request') }}">Forgot password?</a>
+                </div>
             </div>
 
             <div class="register-form">
@@ -86,4 +85,4 @@
     </section>
 
     <script src="{{ asset('js/index.js') }}"></script>
-</x-layout>
+</x-layout.unauthenticated>

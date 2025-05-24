@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout.unauthenticated>
     <x-slot:title>Registration</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
 
@@ -46,7 +46,7 @@
                     </div>
                 <?php endif; ?>
 
-                    <p>Enter your Email</p>
+                    <p>Enter your Credentials</p>
                     <form action="{{ route('auth.register') }}" method="POST" id="emailForm">
                     @csrf
                         <div class="form-group">
@@ -60,10 +60,13 @@
                         </div>
                         <button type="submit" class="btn-submit">Submit</button>
                     </form>
+                    <div class="form-group forgot-password-link">
+                        <a href="{{ route('view-login') }}" >Already have an account?</a>
+                    </div>
             </div>
         </main>
 
     </div>
 
     <script src="{{ asset('js/index.js') }}"></script>
-</x-layout>
+</x-layout.unauthenticated>

@@ -17,9 +17,9 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = RoleUser::where('user_id', Auth::id())->pluck('role_id')[0];
+        $user = RoleUser::where('user_id', '=', Auth::id())->pluck('role_id')[0];
         if ($user!=1) {
-            return redirect()->route("view-dashboard")->with("error", "YOU ARE NOT ADMIN!");
+            return redirect()->route("view-dashboard")->with("error", "Invalid input! Error no.: 113");
         }
         return $next($request);
     }

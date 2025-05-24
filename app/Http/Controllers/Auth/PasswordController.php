@@ -27,7 +27,7 @@ class PasswordController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return redirect()->route('view-login')->with(['status' => __($status)]);
+            return redirect()->route('view-login')->with(['success' => __($status)]);
         } else {
             return back()->withErrors(['email' => __($status)]);
         }
@@ -52,7 +52,7 @@ class PasswordController extends Controller
         );
 
         if ($status == Password::PasswordReset) {
-            return redirect()->route('view-login')->with('status', __($status));
+            return redirect()->route('view-login')->with('success', __($status));
         } else {
             return back()->withErrors(['email' => [__($status)]]);
         }

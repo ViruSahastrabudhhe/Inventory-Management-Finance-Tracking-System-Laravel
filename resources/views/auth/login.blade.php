@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout.unauthenticated>
     <x-slot:title>Login and Registration</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
     
@@ -60,10 +60,15 @@
                         </div>
                         <button type="submit" class="btn-submit">Submit</button>
                     </form>
+                    <div class="form-group forgot-password-link">
+                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                        <br>
+                        <a href="{{ route('view-register') }}">Create an account</a>
+                    </div>
             </div>
         </main>
 
     </div>
 
     <script src="{{ asset('js/index.js') }}"></script>
-</x-layout>
+</x-layout.unauthenticated>

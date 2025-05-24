@@ -14,10 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'admin' => EnsureUserIsAdmin::class
-        ]);
-        $middleware->alias([
-            'manager' => EnsureUserIsManager::class
+            'admin' => EnsureUserIsAdmin::class,
+            'manager' => EnsureUserIsManager::class,
         ]);
         $middleware->redirectGuestsTo('/login');
         $middleware->trustHosts(at: ['127.0.0.1:8000']);

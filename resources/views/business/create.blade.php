@@ -43,10 +43,10 @@
                             <input type="text" name="phone" placeholder="Phone number">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="address" placeholder="Address">
+                            <input type="text" name="country" placeholder="Country">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="country" placeholder="Country">
+                            <input type="text" name="address" placeholder="Address">
                         </div>
                         <button type="submit" class="btn-submit">Submit</button>
                     </form>

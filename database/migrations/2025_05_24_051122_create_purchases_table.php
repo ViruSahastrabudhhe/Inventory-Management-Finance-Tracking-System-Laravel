@@ -20,9 +20,9 @@ return new class extends Migration
         });
         Schema::table('purchases', function (Blueprint $table) {
             $table->unsignedBigInteger('supplier_id');
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
         Schema::create('purchase_details', function (Blueprint $table) {
             $table->id();
@@ -32,11 +32,11 @@ return new class extends Migration
         });
         Schema::table('purchase_details', function (Blueprint $table) {
             $table->unsignedBigInteger('purchase_id');
-            $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

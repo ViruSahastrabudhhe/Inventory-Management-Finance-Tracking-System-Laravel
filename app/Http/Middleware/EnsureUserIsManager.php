@@ -17,9 +17,12 @@ class EnsureUserIsManager
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = RoleUser::where('user_id', Auth::id())->pluck('role_id')[0];
+        $user = RoleUser::where('user_id','=', Auth::id())->pluck('role_id')[0];
+        if ($user==1 && $user!=2) {
+            return redirect()->route("view-admin-dashboard")->with("error", "Invalid input! Error no.: 114");
+        }
         if ($user!=2) {
-            return redirect()->route("view-dashboard")->with("error", "YOU ARE NOT MANAGER!");
+            return redirect()->route("view-dashboard")->with("error", "Invalid input! Error no.: 114");
         }
         return $next($request);
     }

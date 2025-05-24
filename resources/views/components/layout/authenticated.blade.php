@@ -13,25 +13,32 @@
 </head>
 <body>
     <header class="main-header">
-        <div class="logo">Cadiz</div>
+        @if (auth()->user()->isAdmin())
+            <div class="logo">CadizAdmin</div>
+        @else
+            <div class="logo">Cadiz</div>
+        @endif
+        
         <nav class="main-nav">
             <ul>
-                {{ $navlinks }}
+                @if (!(auth()->user()->hasVerifiedEmail()))
+                    <form action="{{ route('verification.send') }}" method="POST">
+                        @csrf
+                        <button type="submit">Resend verification email</button>
+                    </form>
+                @endif
+                Hello, {{  Auth::user()->name }}!
+                <form action=" {{ route('auth.logout') }}" method="POST" onsubmit="return confirm('Do you really wish to logout?');">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
             </ul>
         </nav>
     </header>
+    
     <main>
         {{ $slot }}
     </main>
-
-    <script>
-        const authSection = document.getElementById("auth-section")
-        function scrollToAuth() {
-            authSection.scrollIntoView({
-                behavior: "smooth"
-            });
-        }
-    </script>
 
     <footer>
         <div class="footer-content">

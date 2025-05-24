@@ -9,7 +9,7 @@
 @if (session('error'))
     <div>
         <ul>
-            <li>{{ session('error') }}</li>
+            <li>{{  session('error') }}</li>
         </ul>
     </div>
 @endif
@@ -23,3 +23,5 @@
         </ul>
     </div>
 @endif
+
+<script src="{{ asset('js/plugin/sweetalert/sweetalert.min.js') }}"></script>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 
@@ -51,5 +52,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
    public function roles(): BelongsToMany {
         return $this->belongsToMany(Role::class, 'roles');
+    }
+
+    public function isAdmin() {
+        $user = RoleUser::where('user_id', '=', Auth::id())->pluck('role_id')[0];
+        if ($user==1) {
+            return true;
+        }
+        return false;
     }
 }

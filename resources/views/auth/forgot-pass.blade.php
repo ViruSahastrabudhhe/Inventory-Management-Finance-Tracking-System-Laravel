@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout.unauthenticated>
     <x-slot:title>Forgot password</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
 
@@ -18,9 +18,10 @@
     <x-alert/>
 
     <x-slot:navlinks>
+        <li><a href="{{  route('landing') }}">Home</a></li>
         <li><a href="{{ route('view-login') }}">Login</a></li>
         <li><a href="{{ route('view-register') }}">Register</a></li>
-    </x-slot>
+    </x-slot:navlinks>
 
     <div class="container">
 
@@ -50,6 +51,9 @@
                         </div>
                         <button type="submit" class="btn-submit">Submit</button>
                     </form>
+                    <div class="form-group forgot-password-link">
+                        <a href="{{ route('view-login') }}" >Return to login</a>
+                    </div>
             </div>
         </main>
 
@@ -59,4 +63,4 @@
     <div id="toast-container"></div>
 
     <script src="{{  asset('js/forgot_pass.js') }}"></script>
-</x-layout>
+</x-layout.unauthenticated>

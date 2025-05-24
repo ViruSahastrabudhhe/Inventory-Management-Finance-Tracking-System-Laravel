@@ -1,56 +1,65 @@
-<x-layout>
-    <x-slot:title>Dashboard</x-slot>
+<x-layout.authenticated>
+    <x-slot:title>Dashboard</x-slot:title>
 
-    <x-slot:navlinks>
-        hello
-    </x-slot>
-
-    <h1>Hello, {{  Auth::user()->name }}!</h1>
     <x-alert/>
-    <form action=" {{ route('auth.logout') }}" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
     <br>
-    @if (!(auth()->user()->hasVerifiedEmail()))
-    <form action="{{ route('verification.send') }}" method="POST">
-        @csrf
-        <button type="submit">Resend verification email</button>
-    </form>
-    @endif
 
     <div>
         <a href="{{ route('view-add-product') }}">
             <button >Add product</button>
         </a>
     </div>
+
     <div>
-        <h1><?php echo $total ?></h1>
+        <div>
+            <h3><?php echo $productCount ?> Products</h1>
+            <h3><?php echo $categoryCount ?> Categories</h3>
+        </div>
+        <div>
+            
+        </div>
     </div>
+
     <div>
         <table>
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Qty</th>
                 <th>Price</th>
                 <th>Description</th>
-                <th>Date created</th>
+                <th>Date</th>
                 <th>Actions</th>
             </tr>
             @foreach ($products as $key=>$p)
             <tr>
                 <td><?php echo $key+1 ?></td>
                 <td><?php echo $p->name ?></td>
+                <td><?php echo $p->getCategoryName($p->category_id) ?></td>
                 <td><?php echo $p->qty ?></td>
-                <td><?php echo $p->price ?></td>
+                <td>
+                    Buying price: <?php echo $p->buying_price ?>
+                    <br>
+                    Selling price: <?php echo $p->selling_price ?>
+                </td>
                 <td><?php echo $p->description ?></td>
+
+                @if ($p->updated_at)
+                <td>
+                    Date created: <?php echo $p->created_at ?>
+                    <br>
+                    Date updated: <?php echo $p->updated_at ?>
+                </td>
+                @else
                 <td><?php echo $p->created_at ?></td>
+                @endif
+
                 <td>
                 <a href="{{ route('view-edit-product', ['product' => $p]) }}">
                     <button>Edit</button>
                 </a>
-                <form action="{{ route('product.destroy', ['product' => $p]) }}" method="POST">
+                <form action="{{ route('product.destroy', ['product' => $p]) }}" method="POST" onsubmit="return confirm('Delete product?')">
                     @csrf
                     <button type="submit">Delete</button>
                 </form>
@@ -59,4 +68,5 @@
             @endforeach
         </table>
     </div>
-</x-layout>
+
+</x-layout.authenticated>

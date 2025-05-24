@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Business\BusinessController;
 
 Route::get('/', function () {
@@ -14,7 +15,7 @@ Route::get('/', function () {
 })->name('landing');        
 
 Route::controller(DashboardController::class)->group(function (){
-    Route::get('/manager/dashboard', 'showManagerDashboard')->middleware('auth')->name('view-dashboard');
+    Route::get('/manager/dashboard', 'showManagerDashboard')->middleware(['auth', 'manager'])->name('view-dashboard');
     Route::get('/admin/dashboard', 'showAdminDashboard')->middleware(['auth', 'admin'])->name('view-admin-dashboard');
 });
 
@@ -23,12 +24,16 @@ Route::controller(BusinessController::class)->group(function () {
     Route::post('manager/create/business','store')->middleware('auth')->name('business.register');
 });
 
+Route::controller(CategoryController::class)->group(function (){
+    Route::post('/manager/add-product-category', 'store')->middleware(['auth', 'verified', 'manager'])->name('category.add');
+});
+
 Route::controller(ProductController::class)->group(function (){
-    Route::get('/add-product', 'viewAddProduct')->middleware(['auth', 'verified'])->name('view-add-product');
-    Route::post('/add-product', 'store')->middleware(['auth', 'verified'])->name('product.add');
-    Route::get('/edit-product/{product}', 'edit')->middleware(['auth', 'verified'])->name('view-edit-product');
-    Route::post('/update-product/{product}', 'update')->middleware(['auth', 'verified'])->name('product.update');
-    Route::post('/delete-product/{product}', 'destroy')->middleware(['auth', 'verified'])->name('product.destroy');
+    Route::get('/manager/add-product', 'viewAddProduct')->middleware(['auth', 'verified', 'manager'])->name('view-add-product');
+    Route::post('/manager/add-product', 'store')->middleware(['auth', 'verified', 'manager'])->name('product.add');
+    Route::get('/manager/edit-product/{product}', 'edit')->middleware(['auth', 'verified', 'manager'])->name('view-edit-product');
+    Route::post('/manager/update-product/{product}', 'update')->middleware(['auth', 'verified', 'manager'])->name('product.update');
+    Route::post('/manager/delete-product/{product}', 'destroy')->middleware(['auth', 'verified', 'manager'])->name('product.destroy');
 });
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('view-login');
@@ -36,14 +41,14 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/logout', 'logout')->name('auth.logout');
 });
 Route::controller(RegisterController::class)->group(function () {
-    Route::get('/sign-up', 'index')->name('view-register');
-    Route::post('/register', 'store')->name('auth.register');
+    Route::get('/auth/sign-up', 'index')->name('view-register');
+    Route::post('/auth/register', 'store')->name('auth.register');
 });
 Route::controller(PasswordController::class)->group(function () {
-    Route::get('/forgot-password', 'viewForgotPass')->middleware('guest')->name('password.request');
-    Route::post('/forgot-password', 'notify')->middleware('guest')->name('password.email');
-    Route::get('/change-password/{token}', 'viewResetPass')->middleware('guest')->name('password.reset');
-    Route::post('/reset-password', 'update')->middleware('guest')->name('password.update');
+    Route::get('/auth/forgot-password', 'viewForgotPass')->name('password.request');
+    Route::post('/auth/forgot-password', 'notify')->name('password.email');
+    Route::get('/auth/change-password/{token}', 'viewResetPass')->name('password.reset');
+    Route::post('/auth/reset-password', 'update')->name('password.update');
 });
 Route::controller(EmailVerificationController::class)->group(function () {
     Route::get('/verify-email', 'index')->middleware('auth')->name('verification.notice');

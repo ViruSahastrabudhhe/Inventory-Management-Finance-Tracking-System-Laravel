@@ -13,30 +13,27 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function dashboard() {
-        $products=Product::where('user_id', Auth::user()->id)->get();
-        $total = Product::where('user_id', Auth::user()->id)->count();
-        return view("dashboard", ["products" => $products, "total" => $total]);
-    }
-
     public function viewAddProduct() {
-        $products=Product::where('user_id', Auth::user()->id)->get();
-        return view("home.crud.add-product", ["products" => $products]);
+        return view("product.create");
     }
     
     public function store(Request $request) {
         $data = $request->validate([
             'name' => 'required',
+            'category_id' => 'required',
             'qty' => 'required',
-            'price' => 'required',
+            'buying_price' => 'required',
+            'selling_price' => 'required',
             'description' => 'nullable',
         ]);
 
         $product=new Product;
         
         $product->name = $request->name;
+        $product->category_id = $request->category_id;
         $product->qty = $request->qty;
-        $product->price = $request->price;
+        $product->buying_price = $request->buying_price;
+        $product->selling_price = $request->selling_price;
         $product->description = $request->description;
         $product->user_id = Auth::id();
 
@@ -46,8 +43,7 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product) {
-        $products=Product::where('user_id', Auth::user()->id)->get();
-        return view('home.crud.edit-product', ['product' => $product]);
+        return view('product.edit', ['product' => $product]);
     }
 
     public function update(Request $request, Product $product) {
@@ -56,7 +52,8 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'qty' => 'required',
-            'price' => 'required',
+            'buying_price' => 'required',
+            'sellig_price' => 'required',
             'description' => 'required',
         ]);
         

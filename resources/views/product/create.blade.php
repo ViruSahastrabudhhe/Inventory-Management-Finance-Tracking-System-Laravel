@@ -3,7 +3,7 @@
         Add product
     </x-slot>
 
-    <x-form-errors/>
+    <x-alert/>
     <form action="{{ route('product.add') }}" method="POST">
         @csrf
         <input type="text" name="name" placeholder="Product name">

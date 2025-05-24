@@ -4,6 +4,7 @@
     <div id="toast-container"></div>
 
     <x-slot:navlinks>
+        <li><a href="{{  route('landing') }}">Home</a></li>
         <li><a href="#auth" onclick="scrollToAuth()">Login</a></li>
         <li><a href="#auth" onclick="scrollToAuth()">Register</a></li>
     </x-slot>
@@ -30,7 +31,7 @@
         <div class="auth-container">
             <div class="login-form">
                 <h2>Login</h2>
-                <form action="{{ route('auth-login') }}" method="POST" id="login-form">
+                <form action="{{ route('auth.login') }}" method="POST" id="login-form">
                     @csrf
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Email">
@@ -48,7 +49,7 @@
 
             <div class="register-form">
                 <h2>Register</h2>
-                <form action="{{ route('auth-register') }}" method="POST" id="register-form">
+                <form action="{{ route('auth.register') }}" method="POST" id="register-form">
                     @csrf
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Name">

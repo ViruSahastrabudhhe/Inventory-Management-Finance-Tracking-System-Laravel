@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PurchaseDetails extends Model
+class OrderDetail extends Model
 {
     use HasFactory;
     /**
@@ -18,13 +18,13 @@ class PurchaseDetails extends Model
 
      */
 
-    protected $table = 'purchase_details';
+    protected $table = 'order_details';
 
     protected $fillable = [
         'quantity',
         'total',
-        'purchase_id',
         'product_id',
+        'order_id',
         'user_id',
     ];
 }

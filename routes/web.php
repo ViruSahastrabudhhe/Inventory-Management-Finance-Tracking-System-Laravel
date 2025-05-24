@@ -5,16 +5,25 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Business\BusinessController;
 
 Route::get('/', function () {
     return view('auth.landing');
 })->name('landing');        
 
-Route::view('/admin-dashboard', 'home.admin.admin-dashboard')->middleware(['auth', 'admin'])->name('view-admin-dashboard');
+Route::controller(DashboardController::class)->group(function (){
+    Route::get('/manager/dashboard', 'showManagerDashboard')->middleware('auth')->name('view-dashboard');
+    Route::get('/admin/dashboard', 'showAdminDashboard')->middleware(['auth', 'admin'])->name('view-admin-dashboard');
+});
+
+Route::controller(BusinessController::class)->group(function () {
+    Route::get('manager/create/business','index')->middleware('auth')->name('view-create-business');
+    Route::post('manager/create/business','store')->middleware('auth')->name('business.register');
+});
 
 Route::controller(ProductController::class)->group(function (){
-    Route::get('/dashboard', 'dashboard')->middleware('auth')->name('view-dashboard');
     Route::get('/add-product', 'viewAddProduct')->middleware(['auth', 'verified'])->name('view-add-product');
     Route::post('/add-product', 'store')->middleware(['auth', 'verified'])->name('product.add');
     Route::get('/edit-product/{product}', 'edit')->middleware(['auth', 'verified'])->name('view-edit-product');
@@ -23,12 +32,12 @@ Route::controller(ProductController::class)->group(function (){
 });
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('view-login');
-    Route::post('/login', 'login')->name('auth-login');
-    Route::post('/logout', 'logout')->name('auth-logout');
+    Route::post('/login', 'login')->name('auth.login');
+    Route::post('/logout', 'logout')->name('auth.logout');
 });
 Route::controller(RegisterController::class)->group(function () {
     Route::get('/sign-up', 'index')->name('view-register');
-    Route::post('/register', 'store')->name('auth-register');
+    Route::post('/register', 'store')->name('auth.register');
 });
 Route::controller(PasswordController::class)->group(function () {
     Route::get('/forgot-password', 'viewForgotPass')->middleware('guest')->name('password.request');

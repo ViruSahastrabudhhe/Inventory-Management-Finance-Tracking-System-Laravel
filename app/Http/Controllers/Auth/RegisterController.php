@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use App\Models\User;
 use App\Models\RoleUser;
+use App\Models\Business;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,19 +26,19 @@ class RegisterController extends Controller
         ]);
 
         $user=User::create($credentials);
-        $this->createUser($user);
+        $this->createManager($user);
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('view-dashboard'))->with('success', 'User successfully registered! Please verify your email with the verification link we sent to your email!');
+        return redirect(route('view-create-business'))->with('success', 'User successfully registered!');
     }
 
-    public function createUser(User $user) {
+    public function createManager(User $user) {
         $roleUser = new RoleUser;
 
         $roleUser->user_id = $user->id;
-        $roleUser->role_id = 3;
+        $roleUser->role_id = 2;
 
         $roleUser->save();
     }

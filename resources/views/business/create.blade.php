@@ -1,25 +1,9 @@
 <x-layout>
-    <x-slot:title>Registration</x-slot>
+    <x-slot:title>Register your business</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
 
+
     <x-alert/>
-    <div hidden>
-        <form action="{{ route('auth.register') }}" method="POST">
-            @csrf
-            <input type="text" name="name" placeholder="Name">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit">Submit</button>
-        </form>
-        <p>
-            Already have an account?
-            <a href="{{ route('view-login') }}" >Login here!</a>
-        </p>
-    
-            <!-- Toast Message Container -->
-        <div id="toast-container"></div>
-    
-    </div>
     <x-slot:navlinks>
         <li><a href="{{  route('landing') }}">Home</a></li>
         <li><a href="{{  route('view-login') }}">Login</a></li>
@@ -30,7 +14,7 @@
 
         <main class="main-content">
             <div class="forgot-password-card">
-                <h2>Register</h2>
+                <h2>Register your business</h2>
                 
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-error">
@@ -46,17 +30,23 @@
                     </div>
                 <?php endif; ?>
 
-                    <p>Enter your Email</p>
-                    <form action="{{ route('auth.register') }}" method="POST" id="emailForm">
+                <p>Enter your credentials</p>
+                    <form action="{{ route('business.register') }}" method="POST" id="emailForm">
                     @csrf
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Name">
+                            <input type="text" name="name" placeholder="Shop name">
                         </div>
                         <div class="form-group">
                             <input type="email" name="email" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" placeholder="Password">
+                            <input type="text" name="phone" placeholder="Phone number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="address" placeholder="Address">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="country" placeholder="Country">
                         </div>
                         <button type="submit" class="btn-submit">Submit</button>
                     </form>
@@ -66,4 +56,5 @@
     </div>
 
     <script src="{{ asset('js/index.js') }}"></script>
+
 </x-layout>

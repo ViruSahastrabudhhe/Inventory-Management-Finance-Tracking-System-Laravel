@@ -3,6 +3,7 @@
         Edit product details
     </x-slot>
 
+    <x-alert/>
     <form action="{{ route('product.update', ['product' => $product->id]) }}" method="POST">
         @csrf
         <input type="text" name="name" placeholder="Product name" value="{{ $product->name }}">

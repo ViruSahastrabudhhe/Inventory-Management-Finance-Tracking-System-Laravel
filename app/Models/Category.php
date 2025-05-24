@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Customer extends Model
+class Category extends Model
 {
     use HasFactory;
     /**
@@ -18,13 +18,10 @@ class Customer extends Model
 
      */
 
-    protected $table = 'customers';
+    protected $table = 'categories';
 
     protected $fillable = [
         'name',
-        'email',
-        'phone',
-        'address',
         'user_id',
     ];
 }

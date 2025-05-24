@@ -16,7 +16,6 @@
         <div class="logo">Cadiz</div>
         <nav class="main-nav">
             <ul>
-                <li><a href="{{  route('landing') }}">Home</a></li>
                 {{ $navlinks }}
             </ul>
         </nav>

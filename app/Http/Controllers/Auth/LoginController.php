@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use App\Models\RoleUser;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -20,13 +21,12 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        // if (Auth::attempt($credentials) && Auth::user()->role == 'admin') {
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('admin-dashboard');
-        // }
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            $user = RoleUser::where('user_id', Auth::id())->pluck('role_id')[0];
+            if ($user==3) {
+                return redirect()->intended('/worker/dashboard');
+            }
         }
 
         return back()->withErrors([

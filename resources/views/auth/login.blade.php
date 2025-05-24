@@ -2,10 +2,9 @@
     <x-slot:title>Login and Registration</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
     
-    <x-form-errors/>
-    <x-form-messages/>
+    <x-alert/>
     <div hidden>
-        <form action="{{ route('auth-login') }}" method="POST">
+        <form action="{{ route('auth.login') }}" method="POST">
             @csrf
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="password" placeholder="Password">
@@ -25,6 +24,7 @@
     <div id="toast-container"></div>
 
     <x-slot:navlinks>
+        <li><a href="{{  route('landing') }}">Home</a></li>
         <li><a href="{{  route('view-login') }}">Login</a></li>
         <li><a href="{{  route('view-register') }}">Register</a></li>
     </x-slot>
@@ -50,7 +50,7 @@
                 <?php endif; ?>
 
                     <p>Enter your Email</p>
-                    <form action="{{ route('auth-login') }}" method="POST" id="emailForm">
+                    <form action="{{ route('auth.login') }}" method="POST" id="emailForm">
                     @csrf
                         <div class="form-group">
                             <input type="email" name="email" placeholder="Email">

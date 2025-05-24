@@ -2,11 +2,12 @@
     <x-slot:title>Dashboard</x-slot>
 
     <x-slot:navlinks>
+        hello
     </x-slot>
 
     <h1>Hello, {{  Auth::user()->name }}!</h1>
-    <x-form-messages/>
-    <form action=" {{ route('auth-logout') }}" method="POST">
+    <x-alert/>
+    <form action=" {{ route('auth.logout') }}" method="POST">
         @csrf
         <button type="submit">Logout</button>
     </form>

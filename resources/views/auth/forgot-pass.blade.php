@@ -15,8 +15,7 @@
             <a href="{{ route('view-login') }}" >Back to login!</a>
         </p>
     </div>
-    <x-form-errors/>
-    <x-form-messages/>
+    <x-alert/>
 
     <x-slot:navlinks>
         <li><a href="{{ route('view-login') }}">Login</a></li>

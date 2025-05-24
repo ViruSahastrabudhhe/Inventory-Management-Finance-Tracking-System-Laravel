@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function dashboard() {
         $products=Product::where('user_id', Auth::user()->id)->get();
         $total = Product::where('user_id', Auth::user()->id)->count();
-        return view("home.dashboard", ["products" => $products, "total" => $total]);
+        return view("dashboard", ["products" => $products, "total" => $total]);
     }
 
     public function viewAddProduct() {

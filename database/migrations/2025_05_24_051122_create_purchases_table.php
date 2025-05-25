@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('purchase_status')->default('Pending');
             $table->integer('purchase_no');
             $table->timestamp('purchase_date');
+            $table->timestamp('completion_date')->nullable();
             $table->timestamps();
         });
         Schema::table('purchases', function (Blueprint $table) {

@@ -5,10 +5,6 @@
 
     <div class="container">
         <div>
-            <a href="{{  route('view-purchases') }}">Back to purchases</a>
-        </div>
-
-        <div>
             <div>
                 <a href="{{  route('view-add-supplier') }}">
                     <button>

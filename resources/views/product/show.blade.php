@@ -25,6 +25,7 @@
         </div>
         <div id="sales-info">
             <div>
+                <button>Add to sales order</button>
                 <h3>Buying price: <?php echo $product->buying_price ?></h3>
                 <h3>Selling price: <?php echo $product->selling_price ?></h3>
 
@@ -41,7 +42,7 @@
             </div>
         </div>
         <div id="purchase-info">
-            <h1>PURCHASE</h1>
+            <button>Add to purchase order</button>
         </div>
 
     </div>

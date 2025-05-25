@@ -5,11 +5,6 @@
 
     <div class="container">
         <div>
-            <a href="{{  route('view-products') }}">Items</a>
-            <a href="{{  route('view-categories') }}">Categories</a>
-        </div>
-
-        <div>
             <div>
                 <a href="{{  route('view-add-category') }}">
                     <button>Add category</button>

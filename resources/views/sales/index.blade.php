@@ -3,11 +3,7 @@
 
     <div class="container">
         <div>
-            <a href="{{  route('view-sales') }}">Sales Orders</a>
-            <a href="{{  route('view-sales') }}">Return Orders</a>
-            <a href="{{  route('view-sales') }}">Customers</a>
-            <a href="{{  route('view-sales') }}">Invoices</a>
+            SALES
         </div>
-
     </div>
 </x-layout.authenticated>

@@ -55,7 +55,7 @@
                     <h3>Supplier information</h3>
                     <p>Will create a purchase order to chosen supplier (or leave blank to skip)</p>
                     
-                    <select name="supplier_id" id="supplier" required>
+                    <select name="supplier_id" id="supplier">
                         <option value="" selected></option>
                         @foreach ($suppliers->getSuppliers() as $s)
                         <option value="{{ $s->id }}"><?php echo $s->company_name; ?></option>

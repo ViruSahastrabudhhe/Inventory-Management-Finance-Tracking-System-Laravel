@@ -1,0 +1,14 @@
+<div>
+    <a href="{{ route('view-dashboard') }}">
+        <button>Dashboard</button>
+    </a>
+    <a href="{{ route('view-products') }}">
+        <button>Items</button>
+    </a>
+    <a href="{{ route('view-sales') }}">
+        <button>Sales</button>
+    </a>
+    <a href="{{ route('view-purchases') }}">
+        <button>Purchases</button>
+    </a>
+</div>

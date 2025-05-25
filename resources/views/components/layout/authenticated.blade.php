@@ -12,9 +12,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <x-alert/>
     <header class="main-header">
         @if (auth()->user()->isAdmin())
-            <div class="logo">CadizAdmin</div>
+            <div class="logo">
+                CadizAdmin
+            </div>
+        @elseif (auth()->user()->isManager())
+            <div class="logo">
+                CadizManager
+            </div>
         @else
             <div class="logo">Cadiz</div>
         @endif
@@ -37,6 +44,16 @@
     </header>
     
     <main>
+        <div>
+            @if (auth()->user()->isManager())
+                <x-manager.navbar></x-manager.navbar>
+            @elseif (auth()->user()->isAdmin())
+            <a href="{{ route('view-admin-dashboard') }}">
+                <button >Dashboard</button>
+            </a>
+            @else
+            @endif
+        </div>
         {{ $slot }}
     </main>
 

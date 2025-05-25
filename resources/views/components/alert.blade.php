@@ -1,26 +1,26 @@
 @if (session('success'))
     <div>
-        <ul>
-            <li>{{  session('success') }}</li>
-        </ul>
+        <script>
+            alert("{{ session('success') }}")
+        </script>
     </div>
 @endif
 
 @if (session('error'))
     <div>
-        <ul>
-            <li>{{  session('error') }}</li>
-        </ul>
+        <script>
+            alert("{{ session('error') }}")
+        </script>
     </div>
 @endif
 
 @if ($errors->any())
     <div>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li> {{  $error }}</li>
-            @endforeach
-        </ul>
+        @foreach ($errors->all() as $error)
+            <script>
+                alert("{{ $error }}")
+            </script>
+        @endforeach
     </div>
 @endif
 

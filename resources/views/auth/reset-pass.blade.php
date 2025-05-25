@@ -2,7 +2,6 @@
     <x-slot:title>Reset password</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
 
-    <x-alert/>
     <x-slot:navlinks>
         <li><a href="{{  route('landing') }}">Home</a></li>
         <li><a href="{{  route('view-login') }}">Login</a></li>

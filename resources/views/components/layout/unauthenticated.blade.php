@@ -22,6 +22,7 @@
     </header>
 
     <main>
+        <x-alert/>
         {{ $slot }}
     </main>
 

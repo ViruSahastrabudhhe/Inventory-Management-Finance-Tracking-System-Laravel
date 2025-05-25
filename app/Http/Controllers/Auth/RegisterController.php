@@ -25,6 +25,11 @@ class RegisterController extends Controller
             'password' => ['required', 'min:8'],
         ]);
 
+        $findUser = User::where('email', '=', $request->email)->first();
+        if (! empty($findUser)) {
+            return back()->with('error', 'The provided credentials do not match our records.');
+        }
+        
         $user=User::create($credentials);
         $this->createManager($user);
         event(new Registered($user));

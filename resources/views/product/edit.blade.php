@@ -1,13 +1,10 @@
 @inject('categories', \App\Models\Category::class)
 
 <x-layout.authenticated>
-    <x-slot:title>
-        Edit product details
-    </x-slot>
+    <x-slot:title>Edit item details</x-slot>
 
-    <x-alert/>
     <div class="container">
-        <a href="{{ route('view-dashboard') }}">Back to dashboard</a>
+        <a href="{{ route('view-products') }}">Back to products</a>
         <form action="{{ route('product.update', ['product' => $product->id]) }}" method="POST">
             @csrf
             <input type="text" name="name" placeholder="Product name" value="{{ $product->name }}">

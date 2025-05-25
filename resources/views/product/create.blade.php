@@ -1,17 +1,15 @@
 @inject('categories', \App\Models\Category::class)
 
 <x-layout.authenticated>
-    <x-slot:title>Add product</x-slot>
-
-    <x-alert/>
+    <x-slot:title>Add item</x-slot>
 
     <div class="container">
-        <a href="{{ route('view-dashboard') }}">Back to dashboard</a>
-        @if ($categories->categoriesExists())
+        <a href="{{ route('view-products') }}">Back to items</a>
+        @if ($categories->categoriesExist())
         <div>
             <form action="{{ route('product.add') }}" method="POST">
                 @csrf
-                <input type="text" name="name" placeholder="Product name">
+                <input type="text" name="name" placeholder="Item name">
 
                 <select required name="category_id" id="select-category">
                     <option value selected>Select category here</option>
@@ -21,10 +19,10 @@
                     @endforeach
                 </select>
 
-                <input type="number" name="qty" placeholder="Product quantity">
-                <input type="number" name="buying_price" placeholder="Product buying price">
-                <input type="number" name="selling_price" placeholder="Product selling price">
-                <input type="text" name="description" placeholder="Product description">
+                <input type="number" name="qty" placeholder="Item quantity">
+                <input type="number" name="buying_price" placeholder="Item buying price">
+                <input type="number" name="selling_price" placeholder="Item selling price">
+                <input type="text" name="description" placeholder="Item description">
                 <button type="submit">Submit</button>
             </form>
 

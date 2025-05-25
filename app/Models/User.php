@@ -50,8 +50,16 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-   public function roles(): BelongsToMany {
+    public function roles(): BelongsToMany {
         return $this->belongsToMany(Role::class, 'roles');
+    }
+
+    public function isManager() {
+        $user = RoleUser::where('user_id', '=', Auth::id())->pluck('role_id')[0];
+        if ($user==2) {
+            return true;
+        }
+        return false;
     }
 
     public function isAdmin() {

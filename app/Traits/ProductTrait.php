@@ -14,8 +14,7 @@ trait ProductTrait
         $total = Product::where('user_id', '=', Auth::user()->id)->count();
         return $total;
     }
-
-    public function getProductCategories() {
+    public function getProductCategoryCount() {
         $categories = Category::where('user_id', '=', Auth::user()->id)->count();
         return $categories;
     }

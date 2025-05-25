@@ -15,7 +15,6 @@
             <a href="{{ route('view-login') }}" >Back to login!</a>
         </p>
     </div>
-    <x-alert/>
 
     <x-slot:navlinks>
         <li><a href="{{  route('landing') }}">Home</a></li>

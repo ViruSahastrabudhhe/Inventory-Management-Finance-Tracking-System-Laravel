@@ -1,9 +1,7 @@
-<x-layout>
+<x-layout.unauthenticated>
     <x-slot:title>Register your business</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
 
-
-    <x-alert/>
     <x-slot:navlinks>
         <li><a href="{{  route('landing') }}">Home</a></li>
         <li><a href="{{  route('view-login') }}">Login</a></li>
@@ -57,4 +55,4 @@
 
     <script src="{{ asset('js/index.js') }}"></script>
 
-</x-layout>
+</x-layout.unauthenticated>

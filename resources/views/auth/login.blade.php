@@ -2,7 +2,6 @@
     <x-slot:title>Login and Registration</x-slot>
     <link rel="stylesheet" href="{{  asset('styles/forgot_pass.css') }}">
     
-    <x-alert/>
     <div hidden>
         <form action="{{ route('auth.login') }}" method="POST">
             @csrf

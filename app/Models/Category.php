@@ -26,7 +26,7 @@ class Category extends Model
         'user_id',
     ];
 
-    public function categoriesExists() {
+    public function categoriesExist() {
         $categories = Category::where('user_id', '=',  Auth::user()->id)->count();
         if ($categories > 0) {
             return true;

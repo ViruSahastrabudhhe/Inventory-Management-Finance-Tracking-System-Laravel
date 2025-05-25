@@ -14,9 +14,8 @@ class DashboardController extends Controller
 
     public function showManagerDashboard() {
         $totalProducts = $this->getProductCount();
-        $totalProductCategories = $this->getProductCategories();
-        $products=Product::where('user_id', Auth::user()->id)->get();
-        return view("dashboard", ["products" => $products, "productCount" => $totalProducts, "categoryCount" => $totalProductCategories]);
+        $totalProductCategories = $this->getProductCategoryCount();
+        return view("dashboard", ["productCount" => $totalProducts, "categoryCount" => $totalProductCategories]);
     }
 
     public function showAdminDashboard() {

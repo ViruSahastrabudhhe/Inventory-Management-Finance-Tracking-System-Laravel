@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function viewAddProduct() {
+    public function index() {
+        $products=Product::where('user_id', Auth::user()->id)->get();
+        return view("product.index", ["products"=>$products]);
+    }
+    
+    public function create() {
         return view("product.create");
     }
     
@@ -39,7 +44,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route('view-dashboard'));
+        return redirect(route('view-products'));
     }
 
     public function edit(Product $product) {
@@ -47,23 +52,29 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, Product $product) {
-        $products=Product::where('user_id', Auth::user()->id)->get();
-        
-        $data = $request->validate([
+        $request->validate([
             'name' => 'required',
+            'category_id' => 'required',
             'qty' => 'required',
             'buying_price' => 'required',
-            'sellig_price' => 'required',
+            'selling_price' => 'required',
             'description' => 'required',
         ]);
-        
-        $product->update($data);
 
-        return redirect(route('view-dashboard', ["products" => $products]))->with('success', "Successfully updated product!");
+        $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->qty = $request->qty;
+        $product->buying_price = $request->buying_price;
+        $product->selling_price = $request->selling_price;
+        $product->description = $request->description;
+
+        $product->save();
+        
+        return redirect(route('view-products'))->with('success', "Successfully updated product!");
     }
 
     public function destroy(Product $product) {
         $product->delete();
-        return redirect(route('view-dashboard'))->with('success', "Successfully deleted product!");
+        return redirect(route('view-products'))->with('success', "Successfully deleted product!");
     }
 }

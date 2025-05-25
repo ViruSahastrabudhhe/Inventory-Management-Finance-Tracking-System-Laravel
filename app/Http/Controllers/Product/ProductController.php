@@ -61,7 +61,7 @@ class ProductController extends Controller
     public function order(Request $request, Product $product) {
         $purchase=new Purchase;
 
-        $purchase->purchase_no=Purchase::count();
+        $purchase->purchase_no="PO"."-".Purchase::count();
         $purchase->user_id=Auth::id();
         $purchase->supplier_id=$request->supplier_id;
 

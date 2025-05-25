@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->string('purchase_no')->unique();
             $table->string('purchase_status')->default('Pending');
-            $table->integer('purchase_no');
             $table->timestamp('purchase_date');
             $table->timestamp('completion_date')->nullable();
             $table->timestamps();

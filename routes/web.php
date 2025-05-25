@@ -45,6 +45,7 @@ Route::controller(PurchaseController::class)->group(callback: function (){
     Route::get('/manager/purchases', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-purchases');
     Route::get('/manager/purchases/purchase/{purchase}', 'show')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-purchase-info');
     Route::get('/manager/purchases/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-purchases');
+    Route::post('/manager/purchases/create', 'store')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase.add');
 });
 Route::controller(SalesController::class)->group(function (){
     Route::get('/manager/sales', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-sales');

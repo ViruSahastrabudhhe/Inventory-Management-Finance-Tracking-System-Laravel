@@ -21,4 +21,18 @@ class PurchaseController extends Controller
         return view("purchase.show", ["purchase"=>$purchase]);
     }
 
+    public function store(Request $request) {
+        $request->validate([
+            
+        ]);
+
+        $purchase=new Purchase;
+
+        $purchase->purchase_no=Purchase::count();
+        $purchase->user_id=Auth::id();
+        $purchase->supplier_id=$request->supplier_id;
+
+        $purchase->save();
+    }
+
 }

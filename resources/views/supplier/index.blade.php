@@ -21,6 +21,7 @@
                 <table class="table">
                 <h3>Items</h3>
                 <tr class="table-row">
+                    <th>Actions</th>
                     <th>#</th>
                     <th>Name</th>
                     <th>Description</th>
@@ -28,10 +29,18 @@
                     <th>Email</th>
                     <th>Address</th>
                     <th>Active?</th>
-                    <th>Actions</th>
                 </tr>
                 @foreach ($suppliers->getSuppliers() as $key=>$s)
                 <tr>
+                    <td>
+                        <a href="{{ route('view-edit-supplier', ['supplier'=>$s]) }}">
+                            <button>Edit</button>
+                        </a>
+                        <form action="{{  route('supplier.destroy', ['supplier'=>$s]) }}" method="POST">
+                        @csrf
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                     <td><?php echo $key+1 ?></td>
                     <td><?php echo $s->company_name ?></td>
                     <td><?php echo $s->description ?></td>
@@ -43,10 +52,6 @@
                     @else
                     <td><?php echo "NO" ?></td>
                     @endif
-                    <td>
-                        <button>Edit</button>
-                        <button type="submit">Delete</button>
-                    </td>
                 </tr>
                 @endforeach
             </table>

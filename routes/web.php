@@ -30,7 +30,10 @@ Route::controller(BusinessController::class)->group(function () {
 Route::controller(SupplierController::class)->group(function () {
     Route::get('manager/purchases/suppliers','index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-suppliers');
     Route::get('manager/purchases/suppliers/create','create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-supplier');
+    Route::get('manager/purchases/suppliers/{supplier}/edit','edit')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-edit-supplier');
     Route::post('manager/purchases/suppliers/create','store')->middleware(['auth', 'manager', 'business', 'verified'])->name('supplier.add');
+    Route::post('manager/purchases/suppliers/{supplier}/edit','update')->middleware(['auth', 'manager', 'business', 'verified'])->name('supplier.update');
+    Route::post('manager/purchases/suppliers/{supplier}/delete','destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('supplier.destroy');
 });
 
 Route::controller(CategoryController::class)->group(function (){

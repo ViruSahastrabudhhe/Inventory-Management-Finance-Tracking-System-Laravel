@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Supplier extends Model
 {
@@ -46,4 +47,18 @@ class Supplier extends Model
         return $suppliers;
     }
     
+    public function getSupplierCompanyName($productID) {
+        $companyName = DB::table('suppliers')
+            ->join('purchases', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->join('purchase_details', 'purchase_details.purchase_id', '=', 'purchases.id')
+            ->join('products', 'products.id', '=', 'purchase_details.product_id')
+            ->where('suppliers.user_id', '=', Auth::user()->id)
+            ->where('products.id', '=', $productID)
+            ->select('suppliers.*', 'suppliers.company_name')
+            ->pluck('company_name');
+        
+        foreach ($companyName as $c) {
+            echo $c;
+        }
+    }
 }

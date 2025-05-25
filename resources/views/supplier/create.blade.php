@@ -8,7 +8,7 @@
             <a href="{{ route('view-suppliers') }}">Back to suppliers</a>
         </div>
         <div>
-            <h3>Item information</h3>
+            <h3>Supplier information</h3>
             <form action="{{ route('supplier.add') }}" method="POST">
             @csrf
                 <input type="text" name="company_name" placeholder="Company name">

@@ -23,8 +23,8 @@ class ProductController extends Controller
         return view("product.create");
     }
 
-    public function show() {
-        return view("product.show");
+    public function show(Product $product) {
+        return view("product.show", ["product"=>$product]);
     }
     
     public function store(Request $request) {
@@ -81,7 +81,6 @@ class ProductController extends Controller
         $purchaseDetail->save();
     }
 
-
     public function edit(Product $product) {
         return view('product.edit', ['product' => $product]);
     }
@@ -91,6 +90,7 @@ class ProductController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'qty' => 'required',
+            'supplier_id' => 'nullable',
             'buying_price' => 'required',
             'selling_price' => 'required',
             'description' => 'required',

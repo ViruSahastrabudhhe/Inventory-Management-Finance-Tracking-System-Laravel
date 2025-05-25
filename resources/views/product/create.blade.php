@@ -15,10 +15,10 @@
             <a href="{{ route('view-products') }}">Back to items</a>
         </div>
         <div>
+            <h3>Item information</h3>
             <form action="{{ route('product.add') }}" method="POST" id="product-form">
             @csrf
                 <div>
-                    <h3>Item information</h3>
                     <label for="select-category">Category</label>
                     <br>
                     <select name="category_id" id="select-category" required>
@@ -55,7 +55,7 @@
                     <h3>Supplier information</h3>
                     <p>Will create a purchase order to chosen supplier (or leave blank to skip)</p>
                     
-                    <select name="supplier_id" id="supplier">
+                    <select name="supplier_id" id="supplier" required>
                         <option value="" selected></option>
                         @foreach ($suppliers->getSuppliers() as $s)
                         <option value="{{ $s->id }}"><?php echo $s->company_name; ?></option>
@@ -67,7 +67,6 @@
                 <button type="submit">Create</button>
             </form>
         </div>
-
     </div>
 
     <script>

@@ -7,7 +7,6 @@
             <a href="{{  route('view-sales') }}">Return Orders</a>
             <a href="{{  route('view-sales') }}">Customers</a>
             <a href="{{  route('view-sales') }}">Invoices</a>
-            <a href="{{  route('view-sales') }}">Payments Received</a>
         </div>
 
     </div>

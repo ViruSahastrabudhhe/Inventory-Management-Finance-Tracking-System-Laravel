@@ -3,7 +3,7 @@
         <button>Dashboard</button>
     </a>
     <a href="{{ route('view-products') }}">
-        <button>Items</button>
+        <button>Inventory</button>
     </a>
     <a href="{{ route('view-sales') }}">
         <button>Sales</button>

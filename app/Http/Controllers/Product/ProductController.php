@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Product;
 
 use App\Models\Product;
+use App\Models\Purchase;
+use App\Models\PurchaseDetail;
 use App\Models\User;
 use App\Models\RoleUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -21,14 +22,20 @@ class ProductController extends Controller
     public function create() {
         return view("product.create");
     }
+
+    public function show() {
+        return view("product.show");
+    }
     
     public function store(Request $request) {
         $data = $request->validate([
             'name' => 'required',
             'category_id' => 'required',
             'qty' => 'required',
+            'status' => 'nullable',
             'buying_price' => 'required',
             'selling_price' => 'required',
+            'supplier_id' => 'nullable',
             'description' => 'nullable',
         ]);
 
@@ -43,9 +50,37 @@ class ProductController extends Controller
         $product->user_id = Auth::id();
 
         $product->save();
+        if ($request->supplier_id==null) {
+            return redirect(route('view-products'))->with('success', 'Successfully added new item!');
+        }
 
-        return redirect(route('view-products'));
+        $this->order($request, $product);
+        return redirect(route('view-products'))->with('success', 'Successfully added new item and purchase order!');
     }
+
+    public function order(Request $request, Product $product) {
+        $purchase=new Purchase;
+
+        $purchase->purchase_no=Purchase::count();
+        $purchase->user_id=Auth::id();
+        $purchase->supplier_id=$request->supplier_id;
+
+        $purchase->save();
+        $this->write($request, $product, $purchase);
+    }
+
+    public function write(Request $request, Product $product, Purchase $purchase) {
+        $purchaseDetail=new PurchaseDetail;
+
+        $purchaseDetail->quantity=$request->qty;
+        $purchaseDetail->total=$request->buying_price*$request->qty;
+        $purchaseDetail->purchase_id=$purchase->id;
+        $purchaseDetail->product_id=$product->id;
+        $purchaseDetail->user_id=Auth::id();
+
+        $purchaseDetail->save();
+    }
+
 
     public function edit(Product $product) {
         return view('product.edit', ['product' => $product]);

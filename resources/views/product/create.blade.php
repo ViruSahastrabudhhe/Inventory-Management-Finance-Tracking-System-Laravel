@@ -1,49 +1,84 @@
 @inject('categories', \App\Models\Category::class)
+@inject('suppliers', \App\Models\Supplier::class)
 
 <x-layout.authenticated>
     <x-slot:title>Add item</x-slot>
+    <style>
+        .disable_section {
+            pointer-events: none;
+            opacity: 0.4;
+        }
+    </style>
 
     <div class="container">
-        <a href="{{ route('view-products') }}">Back to items</a>
-        @if ($categories->categoriesExist())
         <div>
-            <form action="{{ route('product.add') }}" method="POST">
-                @csrf
-                <input type="text" name="name" placeholder="Item name">
+            <a href="{{ route('view-products') }}">Back to items</a>
+        </div>
+        <div>
+            <form action="{{ route('product.add') }}" method="POST" id="product-form">
+            @csrf
+                <div>
+                    <h3>Item information</h3>
+                    <label for="select-category">Category</label>
+                    <br>
+                    <select name="category_id" id="select-category" required>
+                        <option value="" selected></option>
+    
+                        @foreach ($categories->getCategories() as $key=>$c)
+                            <option value="{{ $c->id }}"><?php echo $c->name; ?></option>
+                        @endforeach
+                    </select>
 
-                <select required name="category_id" id="select-category">
-                    <option value selected>Select category here</option>
+                    <br>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="Item name" id="name" required>
+    
+                    <label for="description">Description</label>
+                    <input type="text" name="description" placeholder="Item description" id="description">
 
-                    @foreach ($categories->getCategories() as $key=>$c)
-                        <option value="{{ $c->id }}"><?php echo $c->name; ?></option>
-                    @endforeach
-                </select>
+                    <h3>Inventory information</h3>
+                    <div>
+                        <label for="qty">Initial stock</label>
+                        <input type="number" name="qty" placeholder="Item quantity" id="qty">
+                    </div>
+                </div>
 
-                <input type="number" name="qty" placeholder="Item quantity">
-                <input type="number" name="buying_price" placeholder="Item buying price">
-                <input type="number" name="selling_price" placeholder="Item selling price">
-                <input type="text" name="description" placeholder="Item description">
-                <button type="submit">Submit</button>
-            </form>
+                <div id="sales-form">
+                    <h3>Sales information</h3>
+                    <label for="buying_price">Buying price</label>
+                    <input type="number" name="buying_price" placeholder="Item buying price">
+                    <label for="selling_price">Selling price</label>
+                    <input type="number" name="selling_price" placeholder="Item selling price" id="selling_price">
+                </div>
 
-            <br>
-            <form action="{{ route('category.add') }}" method="POST">
-                @csrf
-                <input type="text" name="name" placeholder="Category name">
-                <button type="submit">Submit</button>
+                <div>
+                    <h3>Supplier information</h3>
+                    <p>Will create a purchase order to chosen supplier (or leave blank to skip)</p>
+                    
+                    <select name="supplier_id" id="supplier">
+                        <option value="" selected></option>
+                        @foreach ($suppliers->getSuppliers() as $s)
+                        <option value="{{ $s->id }}"><?php echo $s->company_name; ?></option>
+                        @endforeach
+                    </select>
+                </div>
+            
+                <br>
+                <button type="submit">Create</button>
             </form>
         </div>
 
-        @else
-        <div>
-            INSERT CATEGORY HERE
-            <form action="{{ route('category.add') }}" method="POST">
-                @csrf
-                <input type="text" name="name" placeholder="Category name">
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        @endif
     </div>
 
+    <script>
+        document.getElementById('purchase-form').classList.add('disable_section')
+
+        function enablePurchaseForm() {
+            if (document.getElementById("is-purchase-form").checked) {
+                document.getElementById("purchase-form").classList.remove('disable_section')
+            } else {
+                document.getElementById("purchase-form").classList.add('disable_section')
+            }
+        }
+    </script>
 </x-layout.authenticated>

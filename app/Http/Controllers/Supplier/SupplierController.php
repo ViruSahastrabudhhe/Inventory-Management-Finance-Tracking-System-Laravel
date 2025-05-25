@@ -20,18 +20,28 @@ class SupplierController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name'=>['required'],
+            'name'=>['nullable'],
+            'company_name'=>['required'],
+            'description'=>['nullable'],
             'email'=>['required', 'email'],
             'phone'=>['required'],
             'address'=>['required'],
+            'is_active'=>['boolean'],
         ]);
 
         $supplier = new Supplier;
 
-        $supplier->name = $request->name;
+        if ($request->name===null) {
+            $supplier->name=null;
+        } else {
+            $supplier->name = $request->name;
+        }
+        $supplier->company_name = $request->company_name;
+        $supplier->description = $request->description;
         $supplier->email = $request->email;
         $supplier->phone = $request->phone;
         $supplier->address = $request->address;
+        $supplier->is_active = $request->is_active;
         $supplier->user_id = Auth::id();
 
         $supplier->save();

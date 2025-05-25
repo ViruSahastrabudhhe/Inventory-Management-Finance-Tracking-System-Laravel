@@ -23,9 +23,12 @@ class Supplier extends Model
 
     protected $fillable = [
         'name',
+        'description',
+        'company_name',
         'email',
         'phone',
         'address',
+        'is_active',
         'user_id',
     ];
 
@@ -38,8 +41,9 @@ class Supplier extends Model
         return false;
     }
 
-    public function getCategories() {
-        $categoryName = Category::where('user_id', '=', Auth::user()->id)->get();
-        return $categoryName;
+    public function getSuppliers() {
+        $suppliers = Supplier::where('user_id', '=', Auth::user()->id)->get();
+        return $suppliers;
     }
+    
 }

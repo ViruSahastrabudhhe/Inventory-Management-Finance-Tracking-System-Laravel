@@ -23,33 +23,36 @@ Route::controller(DashboardController::class)->group(function (){
 });
 
 Route::controller(BusinessController::class)->group(function () {
-    Route::get('manager/create/business','index')->middleware('auth')->name('view-create-business');
-    Route::post('manager/create/business','store')->middleware('auth')->name('business.register');
+    Route::get('manager/business/create','index')->middleware('auth')->name('view-create-business');
+    Route::post('manager/business/create','store')->middleware('auth')->name('business.register');
 });
 
 Route::controller(SupplierController::class)->group(function () {
-    Route::get('manager/manage-suppliers','index')->middleware(['auth', 'verified', 'manager'])->name('view-suppliers');
-    Route::get('manager/add-supplier','create')->middleware(['auth', 'verified', 'manager'])->name('view-add-supplier');
-    Route::post('manager/add-supplier','store')->middleware(['auth', 'verified', 'manager'])->name('supplier.add');
+    Route::get('manager/purchases/suppliers','index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-suppliers');
+    Route::get('manager/purchases/suppliers/create','create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-supplier');
+    Route::post('manager/purchases/suppliers/create','store')->middleware(['auth', 'manager', 'business', 'verified'])->name('supplier.add');
 });
 
 Route::controller(CategoryController::class)->group(function (){
-    Route::post('/manager/add-product-category', 'store')->middleware(['auth', 'verified', 'manager'])->name('category.add');
+    Route::get('/manager/items/categories','index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-categories');
+    Route::get('/manager/items/categories/create','create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-category');
+    Route::post('/manager/items/categories/create', 'store')->middleware(['auth', 'manager', 'business', 'verified'])->name('category.add');
 });
 Route::controller(PurchaseController::class)->group(function (){
-    Route::get('/manager/manage-purchases', 'index')->middleware(['auth', 'verified', 'manager'])->name('view-purchases');
+    Route::get('/manager/purchases', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-purchases');
 });
 Route::controller(SalesController::class)->group(function (){
-    Route::get('/manager/manage-sales', 'index')->middleware(['auth', 'verified', 'manager'])->name('view-sales');
+    Route::get('/manager/sales', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-sales');
 });
 
 Route::controller(ProductController::class)->group(function (){
-    Route::get('/manager/manage-items', 'index')->middleware(['auth', 'verified', 'manager'])->name('view-products');
-    Route::get('/manager/add-item', 'create')->middleware(['auth', 'verified', 'manager'])->name('view-add-product');
-    Route::post('/manager/add-product', 'store')->middleware(['auth', 'verified', 'manager'])->name('product.add');
-    Route::get('/manager/edit-item/{product}', 'edit')->middleware(['auth', 'verified', 'manager'])->name('view-edit-product');
-    Route::post('/manager/update-product/{product}', 'update')->middleware(['auth', 'verified', 'manager'])->name('product.update');
-    Route::post('/manager/delete-product/{product}', 'destroy')->middleware(['auth', 'verified', 'manager'])->name('product.destroy');
+    Route::get('/manager/items', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-products');
+    Route::get('/manager/items/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-product');
+    Route::get('/manager/items/item/{product}', 'show')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-product-info');
+    Route::post('/manager/items/create', 'store')->middleware(['auth', 'manager', 'business', 'verified'])->name('product.add');
+    Route::get('/manager/items/item/{product}/edit', 'edit')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-edit-product');
+    Route::post('/manager/items/item/{product}/edit', 'update')->middleware(['auth', 'manager', 'business', 'verified'])->name('product.update');
+    Route::post('/manager/items/item/{product}/delete', 'destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('product.destroy');
 });
 
 Route::controller(LoginController::class)->group(function () {

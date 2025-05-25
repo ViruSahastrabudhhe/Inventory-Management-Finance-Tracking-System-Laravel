@@ -1,4 +1,4 @@
-<div>
+<nav class="navbar">
     <a href="{{ route('view-dashboard') }}">
         <button>Dashboard</button>
     </a>
@@ -11,4 +11,4 @@
     <a href="{{ route('view-purchases') }}">
         <button>Purchases</button>
     </a>
-</div>
+</nav>

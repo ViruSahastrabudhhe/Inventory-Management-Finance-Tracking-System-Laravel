@@ -22,9 +22,12 @@ class Customer extends Model
 
     protected $fillable = [
         'name',
+        'company_name',
         'email',
         'phone',
-        'address',
+        'billing_address',
+        'shipping_address',
+        'is_active',
         'user_id',
     ];
 }

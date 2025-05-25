@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_status');
+            $table->text('description')->nullable();
             $table->timestamp('order_date');
+            $table->timestamp('shipping_date')->nullable();
+            $table->timestamp('delivery_date')->nullable();
+            $table->timestamp('completion_date')->nullable();
             $table->string('payment_type');
             $table->integer('total_products');
             $table->integer('sub_total');
+            $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });
         Schema::table('orders', function (Blueprint $table) {
@@ -28,8 +33,8 @@ return new class extends Migration
         });
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
-            $table->integer('total');
+            $table->integer('quantity')->nullable();
+            $table->integer('total')->nullable();
             $table->timestamps();
         });
         Schema::table('order_details', function (Blueprint $table) {

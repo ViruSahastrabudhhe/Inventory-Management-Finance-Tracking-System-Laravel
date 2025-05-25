@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('parent_name')->nullable();
+            $table->boolean('is_parent')->default(false);
             $table->timestamps();
         });
         Schema::table('categories', function (Blueprint $table) {

@@ -17,10 +17,12 @@
                     <label for="select-category">Category</label>
                     <br>
                     <select name="category_id" id="select-category" required>
-                        <option value="{{ $product->id }}" selected><?php echo $product->getCategoryName($product->category_id); ?></option>
-                        <option value="">---</option>
                         @foreach ($categories->getCategories() as $key=>$c)
-                            <option value="{{ $c->id }}"><?php echo $c->name; ?></option>
+                            @if ($product->getCategoryName($product->category_id)==$c->name)
+                                <option value="{{ $c->id }}" selected><?php echo $product->getCategoryName($product->category_id); ?></option>
+                            @else
+                                <option value="{{ $c->id }}"><?php echo $c->name; ?></option>
+                            @endif
                         @endforeach
                     </select>
 
@@ -35,6 +37,17 @@
                     <div>
                         <label for="qty">Initial stock</label>
                         <input type="number" name="qty" placeholder="Item quantity" id="qty" value="{{ $product->qty }}">
+                        <label for="status">Item status</label>
+                        <br>
+                        <select name="status" id="status">
+                            @if ($product->status=="OK")
+                            <option value="OK" selected>OK</option>
+                            <option value="BAD">BAD</option>
+                            @else
+                            <option value="OK">OK</option>
+                            <option value="BAD" selected>BAD</option>
+                            @endif
+                        </select>
                     </div>
                 </div>
 

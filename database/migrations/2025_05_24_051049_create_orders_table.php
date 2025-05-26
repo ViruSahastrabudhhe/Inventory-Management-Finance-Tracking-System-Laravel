@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_status');
+            $table->string('status')->default('Pending');
             $table->text('description')->nullable();
             $table->timestamp('order_date');
             $table->timestamp('shipping_date')->nullable();

@@ -32,7 +32,7 @@ class ProductController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'qty' => 'required',
-            'status' => 'nullable',
+            'status' => 'required',
             'buying_price' => 'required',
             'selling_price' => 'required',
             'supplier_id' => 'nullable',
@@ -44,6 +44,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->category_id = $request->category_id;
         $product->qty = $request->qty;
+        $product->status= $request->status;
         $product->buying_price = $request->buying_price;
         $product->selling_price = $request->selling_price;
         $product->description = $request->description;
@@ -90,6 +91,7 @@ class ProductController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'qty' => 'required',
+            'status' => 'required',
             'supplier_id' => 'nullable',
             'buying_price' => 'required',
             'selling_price' => 'required',
@@ -98,6 +100,7 @@ class ProductController extends Controller
 
         $product->name = $request->name;
         $product->category_id = $request->category_id;
+        $product->status = $request->status;
         $product->qty = $request->qty;
         $product->buying_price = $request->buying_price;
         $product->selling_price = $request->selling_price;

@@ -15,9 +15,9 @@
             <a href="{{ route('view-products') }}">Back to items</a>
         </div>
         <div>
-            <h3>Item information</h3>
             <form action="{{ route('product.add') }}" method="POST" id="product-form">
             @csrf
+                <h3>Item information</h3>
                 <div>
                     <label for="select-category">Category</label>
                     <br>
@@ -40,6 +40,12 @@
                     <div>
                         <label for="qty">Initial stock</label>
                         <input type="number" name="qty" placeholder="Item quantity" id="qty">
+                        <label for="status">Item status</label>
+                        <br>
+                        <select name="status" id="status">
+                            <option value="OK">OK</option>
+                            <option value="BAD">BAD</option>
+                        </select>
                     </div>
                 </div>
 

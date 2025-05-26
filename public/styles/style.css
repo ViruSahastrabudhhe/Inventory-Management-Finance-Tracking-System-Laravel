@@ -1,13 +1,15 @@
 h1, h2, h3 , h4, h5, h6 { color: black; }
 table { border-spacing: 10px; }
 td, th { padding: 10px; }
+tr:hover { background-color: grey; }
+td a { display: block; text-decoration: none; color: black; }
 
-.table-row, .dashboard-title, .dashboard-description, .tag, .main { color: black; }
 .container { margin: auto 100px auto 100px; }
 .dashboard-container { margin: auto auto 50px auto; }
 .dashboard-title { margin: auto auto 20px auto; }
 .navbar { 
     margin: 20px auto 20px 50px;
+    color: black;
 }
 
 .row {

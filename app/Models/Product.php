@@ -35,10 +35,8 @@ class Product extends Model
     public function getCategoryName(int $categoryID) {
         $categoryName = Category::where('user_id', '=', Auth::id())
             ->where('id','=', $categoryID)
-            ->pluck('name');
+            ->pluck('name')[0];
         
-        foreach ($categoryName as $c) {
-            echo $c;
-        }
+        return $categoryName;
     }
 }

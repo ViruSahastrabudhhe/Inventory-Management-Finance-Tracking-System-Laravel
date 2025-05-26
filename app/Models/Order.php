@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -21,7 +23,7 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'order_status',
+        'status',
         'description',
         'order_date',
         'shipping_date',
@@ -34,4 +36,9 @@ class Order extends Model
         'customer_id',
         'user_id',
     ];
+
+    public function getOrders() {
+        $orders = Order::where('user_id', '=', Auth::user()->id)->get();
+        return $orders;
+    }
 }

@@ -25,12 +25,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = RoleUser::where('user_id', Auth::id())->pluck('role_id')[0];
             if ($user==2) {
-                return redirect(route('view-dashboard'));
+                return redirect(route('view-dashboard'))->with("success", 'Successfully logged in!');
             }
             if ($user==1) {
-                return redirect(route('view-admin-dashboard'));
+                return redirect(route('view-admin-dashboard'))->with("success", 'Successfully logged in!');
             }
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with("success", 'Successfully logged in!');
         }
 
         return back()->withErrors([

@@ -24,9 +24,12 @@ class Purchase extends Model
 
     protected $fillable = [
         'name',
-        'purchase_status',
         'purchase_no',
+        'status',
+        'description',
+        'payment_type',
         'purchase_date',
+        'target_date',
         'completion_date',
         'supplier_id',
         'user_id',
@@ -36,4 +39,15 @@ class Purchase extends Model
         $purchases = Purchase::where('user_id', '=', Auth::user()->id)->get();
         return $purchases;
     }
+
+    public function getPurchaseSupplierName($purchaseID) {
+        $supplierName = DB::table('purchases')
+            ->join('suppliers', 'suppliers.id', '=', 'purchases.supplier_id')
+            ->where('purchases.user_id','=', Auth::user()->id)
+            ->where('purchases.id','=', $purchaseID)
+            ->pluck('company_name')[0];
+        
+        return $supplierName;
+    }
+
 }

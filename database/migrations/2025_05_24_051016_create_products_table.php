@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->integer('buying_price');
             $table->integer('selling_price');
-            $table->string('status')->default('Pending');
+            $table->string('status')->default('OK');
             $table->text('description')->nullable();
             $table->timestamps();
         });

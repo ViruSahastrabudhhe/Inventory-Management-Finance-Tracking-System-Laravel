@@ -41,4 +41,11 @@ class Category extends Model
         $categoryName = Category::where('user_id', '=', Auth::user()->id)->get();
         return $categoryName;
     }
+
+    public function getProductWithCategoryCount($categoryID) {
+        $count = Product::where('user_id', '=', Auth::user()->id)
+            ->where('category_id','=', $categoryID)
+            ->count();
+        return $count;
+    }
 }

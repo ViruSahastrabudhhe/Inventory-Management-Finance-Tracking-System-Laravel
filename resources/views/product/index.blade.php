@@ -56,11 +56,6 @@
                                     @csrf
                                     <button type="submit">Delete</button>
                                 </form>
-                                <a href="">
-                                    <button>
-                                        Order item
-                                    </button>
-                                </a>
                             </td>
                             <td>
                                 <a href="{{ route('view-product-info', ['product'=>$p]) }}'">

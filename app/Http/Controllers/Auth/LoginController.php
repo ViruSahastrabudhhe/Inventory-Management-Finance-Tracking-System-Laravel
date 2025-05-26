@@ -23,6 +23,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            if (! auth()->user()->isActivated($request->email)) {
+                return redirect()->route('landing')->with('error', 'Please consult with website admin.');
+            }
+
             $user = RoleUser::where('user_id', Auth::id())->pluck('role_id')[0];
             if ($user==2) {
                 return redirect(route('view-dashboard'))->with("success", 'Successfully logged in!');

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 
@@ -52,6 +53,25 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function roles(): BelongsToMany {
         return $this->belongsToMany(Role::class, 'roles');
+    }
+
+    public function getUsers() {
+        $user=DB::table('role_user')
+            ->join('users', 'users.id', '=', 'role_user.user_id')
+            ->where('role_user.user_id', '!=', Auth::user()->id)
+            ->get();
+        return $user;
+    }
+
+    public function isActivated($email) {
+        $user=User::where('email', '=', $email)
+            ->first();
+
+        if ($user->is_activated==1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function isManager() {

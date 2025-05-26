@@ -20,8 +20,10 @@
                         <th>Purchase no.</th>
                         <th>Purchase description</th>
                         <th>Supplier</th>
+                        <th>Payment type</th>
                         <th>Purchase status</th>
                         <th>Purchase date</th>
+                        <th>Target date</th>
                         <th>Completion date</th>
                     </tr>
                 </thead>
@@ -31,8 +33,10 @@
                         <th>Purchase no.</th>
                         <th>Purchase description</th>
                         <th>Supplier</th>
+                        <th>Payment type</th>
                         <th>Purchase status</th>
                         <th>Purchase date</th>
+                        <th>Target date</th>
                         <th>Completion date</th>
                     </tr>
                 </tfoot>
@@ -55,8 +59,10 @@
                         </td>
                         <td><?php echo $p->purchase_description ?></td>
                         <td><?php echo $p->getPurchaseSupplierName($p->id) ?></td>
+                        <td><?php echo $p->payment_type ?></td>
                         <td><?php echo $p->purchase_status ?></td>
                         <td><?php echo $p->purchase_date ?></td>
+                        <td><?php echo $p->target_date ?></td>
                         @if ($p->completion_date==null)
                         <td>-</td>
                         @else

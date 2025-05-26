@@ -58,7 +58,7 @@
                 </div>
 
                 <div>
-                    <h3>Supplier information</h3>
+                    <h3>Purchase information</h3>
                     <p>Will create a purchase order to chosen supplier (or leave blank to skip)</p>
                     
                     <select name="supplier_id" id="supplier">
@@ -71,6 +71,13 @@
                     <a href="{{  route('view-add-supplier') }}">
                         <button type="button">Add a supplier</button>
                     </a>
+                    <br>
+                    <label for="payment_type">Payment type</label>
+                    <br>
+                    <select name="payment_type" id="payment_type" required>
+                        <option value="Cash">Cash</option>
+                        <option value="Card">Card</option>
+                    </select>
                     <br>
                     <label for="description">Purchase description</label>
                     <input type="text" id="description" name="purchase_description" placeholder="Purchase description">

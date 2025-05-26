@@ -9,12 +9,27 @@
         </div>
 
         <div>
-            <form action="{{  route('purchase.add') }}" method="POST">
+            <form action="{{  route('purchase.update', ['purchase'=>$purchase]) }}" method="POST">
             @csrf
                 <label for="purchase_no">Purchase order no.</label>
-                <input type="text" name="purchase_no" placeholder="Purchase number" id="purchase_no" value="{{ $purchase->purchase_no }}">
+                <input type="text" name="purchase_no" readonly placeholder="Purchase number" id="purchase_no" value="{{ $purchase->purchase_no }}">
                 <label for="description">Description</label>
-                <input type="text" name="description" placeholder="Purchase description" id="description" value="{{ $purchase->purchase_description }}">
+                <input type="text" name="purchase_description" placeholder="Purchase description" id="description" value="{{ $purchase->purchase_description }}">
+                <label for="payment_type">Payment type</label>
+                <br>
+                <select name="payment_type" id="payment_type" required>
+                    @if ($purchase->payment_type=="Cash")
+                    <option value="Cash" selected>Cash</option>
+                    <option value="Card">Card</option>
+                    @else
+                    <option value="Cash">Cash</option>
+                    <option value="Card" selected>Card</option>
+                    @endif
+                </select>
+                <br>
+                <label for="">Target date</label>
+                <input type="date" name="target_date" value="{{ $purchase->target_date }}" required>
+
                 <label for="supplier">Supplier</label>
                 <br>
                 <select name="supplier_id" id="supplier" required>

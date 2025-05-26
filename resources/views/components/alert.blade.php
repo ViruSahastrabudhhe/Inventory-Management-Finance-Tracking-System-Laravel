@@ -1,7 +1,14 @@
 @if (session('success'))
     <div>
         <script>
-            alert("{{ session('success') }}")
+            swal("{{session('success')}}", {
+                icon: "success",
+                buttons: {
+                confirm: {
+                    className: "btn btn-success",
+                    },
+                },
+            });
         </script>
     </div>
 @endif
@@ -9,7 +16,14 @@
 @if (session('error'))
     <div>
         <script>
-            alert("{{ session('error') }}")
+            swal("{{session('error')}}", {
+                icon: "error",
+                buttons: {
+                confirm: {
+                    className: "btn btn-danger",
+                    },
+                },
+            });
         </script>
     </div>
 @endif
@@ -18,10 +32,14 @@
     <div>
         @foreach ($errors->all() as $error)
             <script>
-                alert("{{ $error }}")
-            </script>
+            swal("{{session('error')}}", {
+                icon: "error",
+                buttons: {
+                confirm: {
+                    className: "btn btn-danger",
+                    },
+                },
+            });
         @endforeach
     </div>
 @endif
-
-<script src="{{ asset('js/plugin/sweetalert/sweetalert.min.js') }}"></script>

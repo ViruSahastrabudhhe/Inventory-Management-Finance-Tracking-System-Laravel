@@ -49,14 +49,18 @@
                 <a href="{{ route('view-add-purchase') }}">
                     <button>Create purchase order</button>
                 </a>
-                <button>Restock</button>
                 <!-- IF U HAVE THIS PRODUCT IN DETAILS, 
                  RESTOCK->(purchase_details) will create a purchase order and purchase details
                  CREATE A NEW PURCHASE ORDER->(purchase_order) will only create a purchase order -->
                 @else
-                <button>Create purchase order</button>
+                <a href="{{ route('view-add-purchase') }}">
+                    <button>Create purchase order</button>
+                </a>
                 <!-- IF U DONT HAVE THIS PRODUCT IN PURCHASES, ISSUE A NEW PURCHASE ORDER WITH DETAILS -->
                 @endif
+                <a href="{{  route('view-add-purchase-detail', ['product'=>$product]) }}">
+                    <button>Add to purchase order</button>
+                </a>
                 <table id="table">
                     <thead>
                         <tr>

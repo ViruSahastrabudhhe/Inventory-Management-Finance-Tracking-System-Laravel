@@ -53,9 +53,7 @@
             @if (auth()->user()->isManager())
                 <x-manager.navbar></x-manager.navbar>
             @elseif (auth()->user()->isAdmin())
-            <a href="{{ route('view-admin-dashboard') }}">
-                <button >Dashboard</button>
-            </a>
+                <x-admin.navbar></x-admin.navbar>
             @else
             @endif
         </div>

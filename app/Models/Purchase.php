@@ -48,6 +48,18 @@ class Purchase extends Model
             ->pluck('company_name')[0];
         
         return $supplierName;
+
+    }
+
+    public function getItemPurchaseDetailsPI(int $purchaseID) {
+        $pdinfo = DB::table('purchases')
+            ->join('purchase_details', 'purchases.id', '=', 'purchase_details.purchase_id')
+            ->join('products', 'products.id', '=', 'purchase_details.product_id')
+            ->where('purchases.user_id', '=', Auth::user()->id)
+            ->where('purchases.id', '=', $purchaseID)
+            ->get();
+
+        return $pdinfo;
     }
 
 }

@@ -35,6 +35,7 @@ class ProductController extends Controller
             'status' => 'required',
             'buying_price' => 'required',
             'selling_price' => 'required',
+            'payment_type' => 'required',
             'supplier_id' => 'nullable',
             'description' => 'nullable',
             'purchase_description' => 'nullable',
@@ -65,6 +66,7 @@ class ProductController extends Controller
 
         $purchase->purchase_no="PO"."-".Purchase::count();
         $purchase->user_id=Auth::id();
+        $purchase->payment_type=$request->payment_type;
         $purchase->purchase_description= $request->purchase_description;
         $purchase->supplier_id=$request->supplier_id;
 

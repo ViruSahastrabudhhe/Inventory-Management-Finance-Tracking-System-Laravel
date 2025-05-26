@@ -14,8 +14,21 @@
             @csrf
                 <label for="purchase_no">Purchase order no.</label>
                 <input type="text" name="purchase_no" placeholder="Purchase number" id="purchase_no" value="PO{{ "-".$purchases->count() }}">
+                
                 <label for="description">Description</label>
-                <input type="text" name="description" placeholder="Purchase description" id="description">
+                <input type="text" name="purchase_description" placeholder="Purchase description" id="description">
+                
+                <label for="payment_type">Payment type</label>
+                <br>
+                <select name="payment_type" id="payment_type" required>
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                </select>
+                <br>
+                
+                <label for="">Target date</label>
+                <input type="date" name="target_date">
+                
                 <label for="supplier">Supplier</label>
                 <br>
                 <select name="supplier_id" id="supplier" required>
@@ -24,6 +37,10 @@
                     <option value="{{ $s->id }}"><?php echo $s->company_name; ?></option>
                     @endforeach
                 </select>
+                <br>
+                <a href="{{  route('view-add-supplier') }}">
+                    <button type="button">Add a supplier</button>
+                </a>
                 <br>
                 <button type="submit">Submit</button>
             </form>

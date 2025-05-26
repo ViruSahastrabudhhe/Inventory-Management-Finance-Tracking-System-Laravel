@@ -27,9 +27,6 @@
             <a href="{{ route('view-customers') }}">
                 <button>Customers</button>
             </a>
-            <a href="{{ route('view-categories') }}">
-                <button>Invoices</button>
-            </a>
         </div>
     </div>
     <div class="dropdown">

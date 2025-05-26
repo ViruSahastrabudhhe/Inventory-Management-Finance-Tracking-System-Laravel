@@ -23,8 +23,8 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'status',
-        'description',
+        'order_status',
+        'order_description',
         'order_date',
         'shipping_date',
         'delivery_date',

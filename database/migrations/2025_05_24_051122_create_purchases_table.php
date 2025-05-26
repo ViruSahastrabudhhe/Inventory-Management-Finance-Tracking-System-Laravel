@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('payment_type');
             $table->string('purchase_status')->default('Pending');
             $table->dateTime('purchase_date');
-            $table->dateTime('target_date')->nullable();
+            $table->date('target_date')->nullable();
             $table->dateTime('completion_date')->nullable();
             $table->timestamps();
         });

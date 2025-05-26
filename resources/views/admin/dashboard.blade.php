@@ -1,8 +1,7 @@
 <x-layout.authenticated>
-    <x-slot:title>Dashboard</x-slot:title>
-
+    <x-slot:title>Admin dashboard</x-slot:title>
     <div class="container">
-        <div class="dashboard-container">
+                <div class="dashboard-container">
             <div class="dashboard-title">
                 <div class="dashboard-description tag">Overview</div>
                 <div class="dashboard-description main">Dashboard</div>
@@ -29,8 +28,6 @@
                     <div class="card">
                         <h3>Item details</h3>
                         <h3>Low stock items</h3>
-                        <h3><?php echo $productCount ?> Products</h1>
-                        <h3><?php echo $categoryCount ?> Categories</h3>
                     </div>
 
                 </div>
@@ -67,4 +64,4 @@
 
         </div>
     </div>
-</x-layout.authenticated>
+</x-layout>

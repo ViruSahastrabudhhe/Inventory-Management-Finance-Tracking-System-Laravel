@@ -1,62 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Purchase;
+namespace App\Http\Controllers\PurchaseDetail;
 
-use App\Models\Purchase;
+use App\Models\PurchaseDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
-class PurchaseController extends Controller
+class PurchaseDetailController extends Controller
 {
-    public function index() {
-        return view('purchase.index');
-    }
     public function create() {
-        return view('purchase.create');
+        return view('purchase_detail.create');
     }
 
-    public function edit(Purchase $purchase) {
+    public function edit(PurchaseDetail $purchase) {
         return view("purchase.edit", ["purchase"=> $purchase]);
     }
 
-    public function show(Purchase $purchase) {
+    public function show(PurchaseDetail $purchase) {
         return view("purchase.show", ["purchase"=>$purchase]);
     }
 
     public function goto(int $purchaseID) {
-        $purchase=Purchase::where('id', '=', $purchaseID)
+        $purchase=PurchaseDetail::where('id', '=', $purchaseID)
             ->where('user_id', '=', Auth::user()->id)
             ->first();
         return $this->show($purchase);
-    }
-
-    public function issue(Purchase $purchase) {
-        $purchase=Purchase::where('id','=', $purchase->id)
-            ->where('user_id','=', Auth::user()->id)
-            ->first();
-        
-        $purchase->purchase_status="Placed";
-
-        $purchase->save();
-
-        return back()->with("success","Successfully placed order!");
-    }
-
-    public function complete(Purchase $purchase) {
-        $purchase=Purchase::where('id','=', $purchase->id)
-            ->where('user_id','=', Auth::user()->id)
-            ->first();
-        
-        date_default_timezone_set("Asia/Manila");
-        $date = date('Y-m-d H:i:s');
-        $purchase->purchase_status="Completed";
-        $purchase->completion_date=$date;
-
-        $purchase->save();
-
-        return back()->with("success","Successfully completed order!");
     }
 
     public function store(Request $request) {
@@ -66,9 +36,9 @@ class PurchaseController extends Controller
             'supplier_id' => 'required',
         ]);
 
-        $purchase=new Purchase;
+        $purchase=new PurchaseDetail;
 
-        $purchase->purchase_no=Purchase::count();
+        $purchase->purchase_no=PurchaseDetail::count();
         $purchase->description=$request->description;
         $purchase->supplier_id=$request->supplier_id;
         $purchase->user_id=Auth::id();
@@ -79,23 +49,24 @@ class PurchaseController extends Controller
     }
 
 
-    public function update(Request $request, Purchase $purchase) {
+    public function update(Request $request, PurchaseDetail $purchase) {
         $request->validate([
             'purchase_no' => 'required',
             'description' => 'required',
             'supplier_id' => 'required',
         ]);
 
-        $purchase->purchase_no=Purchase::count();
+        $purchase->purchase_no=PurchaseDetail::count();
         $purchase->description=$request->description;
         $purchase->supplier_id=$request->supplier_id;
+        $purchase->user_id=Auth::id();
 
         $purchase->save();
 
         return redirect()->route('view-purchases')->with('success', 'Successfully created new purchase order!');
     }
 
-    public function destroy(Purchase $purchase) {
+    public function destroy(PurchaseDetail $purchase) {
         $purchase->delete();
         return redirect()->route('view-purchases')->with('success', 'Successfully deleted purchase order!');
     }

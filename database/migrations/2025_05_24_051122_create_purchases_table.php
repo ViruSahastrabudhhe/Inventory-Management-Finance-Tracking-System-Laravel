@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->string('purchase_no')->unique();
-            $table->string('description');
+            $table->text('purchase_description')->nullable();
             $table->string('payment_type');
-            $table->string('status')->default('Pending');
-            $table->timestamp('purchase_date');
-            $table->timestamp('target_date');
-            $table->timestamp('completion_date')->nullable();
+            $table->string('purchase_status')->default('Pending');
+            $table->dateTime('purchase_date');
+            $table->dateTime('target_date')->nullable();
+            $table->dateTime('completion_date')->nullable();
             $table->timestamps();
         });
         Schema::table('purchases', function (Blueprint $table) {
@@ -35,9 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('purchases', function (Blueprint $table) {
-            $table->dropForeign('user_id');
-        });
         Schema::dropIfExists('purchases');
     }
 };

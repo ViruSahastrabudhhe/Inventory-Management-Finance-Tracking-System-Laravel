@@ -57,9 +57,12 @@ Route::controller(CategoryController::class)->group(function (){
 Route::controller(PurchaseController::class)->group(callback: function (){
     Route::get('/manager/purchases', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-purchases');
     Route::get('/manager/purchases/purchase/{purchase}', 'show')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-purchase-info');
-    Route::get('/manager/purchases/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-purchases');
+    Route::get('/manager/purchases/purchase/{purchase}/redirect', 'goto')->middleware(['auth', 'manager', 'business', 'verified'])->name('goto-purchase-info');
+    Route::get('/manager/purchases/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-purchase');
     Route::get('/manager/purchases/purchase/{purchase}/edit', 'edit')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-edit-purchase');
     Route::post('/manager/purchases/create', 'store')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase.add');
+    Route::post('/manager/purchases/purchase/{purchase}/issue', 'issue')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase.issue');
+    Route::post('/manager/purchases/purchase/{purchase}/complete', 'complete')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase.complete');
     Route::post('/manager/purchases/purchase/{purchase}/edit', 'update')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase.update');
     Route::post('/manager/purchases/purchase/{purchase}/delete', 'destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase.destroy');
 });

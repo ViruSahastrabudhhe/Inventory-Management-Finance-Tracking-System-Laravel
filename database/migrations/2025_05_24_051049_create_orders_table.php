@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('status')->default('Pending');
             $table->text('description')->nullable();
-            $table->timestamp('order_date');
-            $table->timestamp('shipping_date')->nullable();
-            $table->timestamp('delivery_date')->nullable();
-            $table->timestamp('completion_date')->nullable();
+            $table->dateTime('order_date');
+            $table->dateTime('shipping_date')->nullable();
+            $table->dateTime('delivery_date')->nullable();
+            $table->dateTime('completion_date')->nullable();
             $table->string('payment_type');
             $table->integer('total_products');
             $table->integer('sub_total');

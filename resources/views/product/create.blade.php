@@ -67,6 +67,13 @@
                         <option value="{{ $s->id }}"><?php echo $s->company_name; ?></option>
                         @endforeach
                     </select>
+                    <br>
+                    <a href="{{  route('view-add-supplier') }}">
+                        <button type="button">Add a supplier</button>
+                    </a>
+                    <br>
+                    <label for="description">Purchase description</label>
+                    <input type="text" id="description" name="purchase_description" placeholder="Purchase description">
                 </div>
             
                 <br>

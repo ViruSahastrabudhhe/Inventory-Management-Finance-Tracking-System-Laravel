@@ -5,7 +5,7 @@
 
     <div class="container">
         <div>
-            <a href="{{  route('view-add-purchases') }}">
+            <a href="{{  route('view-add-purchase') }}">
                 <button>
                     Create purchase order
                 </button>
@@ -17,7 +17,6 @@
                 <thead>
                     <tr>
                         <th>Actions</th>
-                        <th>#</th>
                         <th>Purchase no.</th>
                         <th>Purchase description</th>
                         <th>Supplier</th>
@@ -29,7 +28,6 @@
                 <tfoot>
                     <tr>
                         <th>Actions</th>
-                        <th>#</th>
                         <th>Purchase no.</th>
                         <th>Purchase description</th>
                         <th>Supplier</th>
@@ -50,11 +48,14 @@
                                 <button type="submit">Delete</button>
                             </form>
                         </td>
-                        <td><?php echo $key+1 ?></td>
-                        <td><?php echo $p->purchase_no ?></td>
-                        <td><?php echo $p->description ?></td>
+                        <td>
+                            <a href="{{  route('view-purchase-info', ['purchase'=>$p]) }}">
+                                <?php echo $p->purchase_no ?>
+                            </a>
+                        </td>
+                        <td><?php echo $p->purchase_description ?></td>
                         <td><?php echo $p->getPurchaseSupplierName($p->id) ?></td>
-                        <td><?php echo $p->status ?></td>
+                        <td><?php echo $p->purchase_status ?></td>
                         <td><?php echo $p->purchase_date ?></td>
                         @if ($p->completion_date==null)
                         <td>-</td>

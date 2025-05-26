@@ -12,9 +12,9 @@
             <form action="{{  route('purchase.add') }}" method="POST">
             @csrf
                 <label for="purchase_no">Purchase order no.</label>
-                <input type="text" name="purchase_no" placeholder="Purchase number" id="purchase_no" value="{{ "PO".$purchase->purchase_no }}">
+                <input type="text" name="purchase_no" placeholder="Purchase number" id="purchase_no" value="{{ $purchase->purchase_no }}">
                 <label for="description">Description</label>
-                <input type="text" name="description" placeholder="Purchase description" id="description" value="{{ $purchase->description }}">
+                <input type="text" name="description" placeholder="Purchase description" id="description" value="{{ $purchase->purchase_description }}">
                 <label for="supplier">Supplier</label>
                 <br>
                 <select name="supplier_id" id="supplier" required>

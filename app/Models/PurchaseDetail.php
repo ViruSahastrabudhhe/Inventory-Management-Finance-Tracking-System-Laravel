@@ -30,19 +30,26 @@ class PurchaseDetail extends Model
         'user_id',
     ];
 
-    public function getPurchaseDetails() {
-        $details = PurchaseDetail::where('user_id', '=', Auth::user()->id)->get();
-        return $details;
-    }
-
-    public function getItemPurchaseDetails($productID) {
+    public function getItemPurchaseDetails(int $productID) {
         $itemDetails = DB::table('purchase_details')
-            ->join('purchases', 'purchases.id', '=', 'purchase_details.id')
+            ->join('purchases', 'purchases.id', '=', 'purchase_details.purchase_id')
             ->join('products', 'products.id', '=', 'purchase_details.product_id')
             ->where('purchase_details.user_id', '=', Auth::user()->id)
             ->where('products.id', '=', $productID)
             ->get();
 
         return $itemDetails;
+    }
+
+    public function getItemPurchaseInfo(int $productID) {
+        $ppinfo = DB::table('purchases')
+            ->join('purchase_details', 'purchase_details.purchase_id', '=', 'purchases.id')
+            ->join('products', 'purchase_details.product_id', '=', 'products.id')
+            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->where('products.id', '=', $productID)
+            ->where('purchases.user_id', '=', Auth::user()->id)
+            ->get();
+
+        return $ppinfo;
     }
 }

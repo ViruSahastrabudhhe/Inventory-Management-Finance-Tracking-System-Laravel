@@ -25,8 +25,8 @@ class Purchase extends Model
     protected $fillable = [
         'name',
         'purchase_no',
-        'status',
-        'description',
+        'purchase_status',
+        'purchase_description',
         'payment_type',
         'purchase_date',
         'target_date',
@@ -40,7 +40,7 @@ class Purchase extends Model
         return $purchases;
     }
 
-    public function getPurchaseSupplierName($purchaseID) {
+    public function getPurchaseSupplierName(int $purchaseID) {
         $supplierName = DB::table('purchases')
             ->join('suppliers', 'suppliers.id', '=', 'purchases.supplier_id')
             ->where('purchases.user_id','=', Auth::user()->id)

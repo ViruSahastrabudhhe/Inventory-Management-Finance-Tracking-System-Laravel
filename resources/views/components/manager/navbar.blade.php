@@ -21,9 +21,6 @@
             <a href="{{ route('view-sales') }}">
                 <button>Sales Orders</button>
             </a>
-            <a href="{{ route('view-categories') }}">
-                <button>Return Orders</button>
-            </a>
             <a href="{{ route('view-customers') }}">
                 <button>Customers</button>
             </a>

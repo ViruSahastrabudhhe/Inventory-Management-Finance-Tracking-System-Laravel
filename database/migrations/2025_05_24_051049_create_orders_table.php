@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_no')->unique();
             $table->string('order_status')->default('Pending');
             $table->text('order_description')->nullable();
             $table->dateTime('order_date');
@@ -20,8 +21,8 @@ return new class extends Migration
             $table->dateTime('delivery_date')->nullable();
             $table->dateTime('completion_date')->nullable();
             $table->string('payment_type');
-            $table->integer('total_products');
-            $table->integer('sub_total');
+            $table->integer('total_products')->default(0);
+            $table->integer('sub_total')->default(0);
             $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity')->nullable();
             $table->integer('total')->nullable();
+            $table->integer('is_delivered')->default(false);
             $table->timestamps();
         });
         Schema::table('order_details', function (Blueprint $table) {

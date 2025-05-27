@@ -17,11 +17,6 @@ class CategoryController extends Controller
     }
 
     public function create() {
-        $category = $this->getProductCategoryCount();
-        if (empty($category)) {
-            session()->flash('error', 'Create categories first before adding items!');
-            return view("category.create");
-        }
         return view("category.create");
     }
 

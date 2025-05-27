@@ -24,25 +24,25 @@ class CustomerController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name'=>'required',
-            'company_name'=>['nullable'],
-            'description'=>['required'],
+            'name'=>['nullable'],
+            'company_name'=>['required'],
+            'description'=>['nullable'],
             'email'=>['required', 'email'],
             'phone'=>['required'],
-            'billing_address'=>['required'],
-            'shipping_address'=>['required'],
-            'is_active'=>['boolean'],
+            'billing_address'=>['nullable'],
+            'shipping_address'=>['nullable'],
+            'is_active'=>['required', 'boolean'],
         ]);
 
         $customer = new Customer;
 
         $customer->name= $request->name;
         $customer->company_name= $request->company_name;
-        $customer->description= $request->description;
+        $customer->description = $request->description;
         $customer->email= $request->email;
         $customer->phone= $request->phone;
-        $customer->billing_address= $request->billing_address;
-        $customer->shipping_address= $request->shipping_address;
+        $customer->billing_address = $request->billing_address;
+        $customer->shipping_address = $request->shipping_address;
         $customer->is_active= $request->is_active;
         $customer->user_id= Auth::id();
         
@@ -53,13 +53,13 @@ class CustomerController extends Controller
 
     public function update(Request $request, Customer $customer) {
         $request->validate([
-            'name'=>'required',
-            'company_name'=>['nullable'],
+            'name'=>['required'],
+            'company_name'=>['required'],
             'description'=>['required'],
             'email'=>['required', 'email'],
             'phone'=>['required'],
-            'billing_address'=>['required'],
-            'shipping_address'=>['required'],
+            'billing_address'=>['nullable'],
+            'shipping_address'=>['nullable'],
             'is_active'=>['boolean'],
         ]);
 
@@ -68,8 +68,16 @@ class CustomerController extends Controller
         $customer->description= $request->description;
         $customer->email= $request->email;
         $customer->phone= $request->phone;
-        $customer->billing_address= $request->billing_address;
-        $customer->shipping_address= $request->shipping_address;
+        if ($request->billing_address == null) {
+            $customer->billing_address = '';
+        } else {
+            $customer->billing_address = $request->billing_address;
+        }
+        if ($request->shipping_address == null) {
+            $customer->shipping_address = '';
+        } else {
+            $customer->shipping_address = $request->shipping_address;
+        }
         $customer->is_active= $request->is_active;
         $customer->user_id= Auth::id();
         

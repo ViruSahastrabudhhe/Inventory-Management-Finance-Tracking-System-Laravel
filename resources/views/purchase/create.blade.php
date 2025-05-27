@@ -13,7 +13,7 @@
             <form action="{{  route('purchase.add') }}" method="POST">
             @csrf
                 <label for="purchase_no">Purchase order no.</label>
-                <input type="text" name="purchase_no" placeholder="Purchase number" id="purchase_no" value="PO{{ "-".$purchases->count() }}">
+                <input type="text" name="purchase_no" placeholder="Purchase number" id="purchase_no" value="PO{{ "-".rand(0,10000).$purchases->count() }}">
                 
                 <label for="description">Description</label>
                 <input type="text" name="purchase_description" placeholder="Purchase description" id="description">

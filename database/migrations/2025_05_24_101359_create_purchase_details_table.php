@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity')->nullable();
             $table->integer('total')->nullable();
+            $table->boolean('is_received')->default(false);
             $table->timestamps();
         });
         Schema::table('purchase_details', function (Blueprint $table) {

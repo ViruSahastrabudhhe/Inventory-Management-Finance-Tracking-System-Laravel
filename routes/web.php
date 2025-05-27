@@ -12,6 +12,7 @@ use App\Http\Controllers\Business\BusinessController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Sales\SalesController;
+use App\Http\Controllers\Sales\SalesDetailController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\PurchaseDetail\PurchaseDetailController;
@@ -63,8 +64,11 @@ Route::controller(CategoryController::class)->group(function (){
 });
 Route::controller(PurchaseDetailController::class)->group(callback: function (){
     Route::get('/manager/purchases/details/detail/{product}/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-purchase-detail');
+    Route::get('/manager/purchases/details/detail/{product}/edit', 'edit')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-edit-purchase-detail');
     Route::post('/manager/purchases/details/detail/{product}/create', 'store')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase_detail.add');
-    Route::post('/manager/purchases/details/detail/{productID}/delete', 'destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase_detail.destroy');
+    Route::post('/manager/purchases/details/detail/{purchase_detail}/delete', 'destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase_detail.destroy');
+    Route::post('/manager/purchases/details/detail/{product}/edit', 'update')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase_detail.update');
+    Route::post('/manager/purchases/details/detail/{product}/{purchase_detail}/restock', 'receive')->middleware(['auth', 'manager', 'business', 'verified'])->name('purchase_detail.restock');
 });
 
 Route::controller(PurchaseController::class)->group(callback: function (){
@@ -81,8 +85,23 @@ Route::controller(PurchaseController::class)->group(callback: function (){
 });
 Route::controller(SalesController::class)->group(function (){
     Route::get('/manager/sales', 'index')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-sales');
-    Route::get('/manager/sales/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-order');
-    Route::get('/manager/sales/sale/{sale}/edit', 'edit')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-edit-sale');
+    Route::get('/manager/sales/create', 'create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-sale');
+    Route::get('/manager/sales/sale/{sales}/edit', 'edit')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-edit-sale');
+    Route::get('/manager/sales/sale/{sales}', 'show')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-sales-info');
+    Route::post('/manager/sales/create', 'store')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.add');
+    Route::post('/manager/sales/sale/{sales}/edit', 'update')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.update');
+    Route::post('/manager/sales/sale/{sales}/issue', 'issue')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.issue');
+    Route::post('/manager/sales/sale/{sales}/ship', 'ship')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.ship');
+    Route::post('/manager/sales/sale/{sales}/deliver', 'deliver')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.deliver');
+    Route::post('/manager/sales/sale/{sales}/complete', 'complete')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.complete');
+    Route::post('/manager/sales/sale/{sales}/delete', 'destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales.destroy');
+});
+
+Route::controller(SalesDetailController::class)->group(function () {
+    Route::get('/manager/sales/details/detail/{product}/create','create')->middleware(['auth', 'manager', 'business', 'verified'])->name('view-add-sales-detail');
+    Route::post('/manager/sales/details/detail/{product}/create','store')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales_detail.add');
+    Route::post('/manager/sales/details/detail/{order_detail}/delete','destroy')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales_detail.destroy');
+    Route::post('/manager/sales/details/detail/{product}/{order_detail}/restock', 'deliver')->middleware(['auth', 'manager', 'business', 'verified'])->name('sales_detail.destock');
 });
 
 Route::controller(ProductController::class)->group(function (){

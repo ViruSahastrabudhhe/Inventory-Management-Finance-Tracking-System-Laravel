@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('company_name')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('email');
             $table->string('phone');
-            $table->string('billing_address');
-            $table->string('shipping_address');
+            $table->string('billing_address')->nullable();
+            $table->string('shipping_address')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

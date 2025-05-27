@@ -46,7 +46,7 @@
                                 <a href="{{ route('view-edit-supplier', ['supplier'=>$s]) }}">
                                     <button>Edit</button>
                                 </a>
-                                <form action="{{  route('supplier.destroy', ['supplier'=>$s]) }}" method="POST">
+                                <form action="{{  route('supplier.destroy', ['supplier'=>$s]) }}" method="POST" onclick="return confirm('Do you really wish to delete this supplier? Deleting this will also delete your purchase orders!')">
                                 @csrf
                                     <button type="submit">Delete</button>
                                 </form>

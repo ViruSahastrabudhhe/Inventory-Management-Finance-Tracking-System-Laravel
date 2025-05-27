@@ -1,14 +1,14 @@
 @inject('purchases', \App\Models\Purchase::class)
 
 <x-layout.authenticated>
-    <x-slot:title>Add purchase detail</x-slot:title>
+    <x-slot:title>Edit purchase details</x-slot:title>
 
     <div class="container">
         <div>
             <a href="{{ route('view-product-info', ['product'=>$product]) }}">Back to item info</a>
         </div>
         <div>
-            <h3>Add item to purchase order</h3>
+            <h3>Edit item in purchase order</h3>
             <form action="{{ route('purchase_detail.add', ['product'=>$product]) }}" method="POST">
             @csrf
                 <label for="product_id">Item</label>

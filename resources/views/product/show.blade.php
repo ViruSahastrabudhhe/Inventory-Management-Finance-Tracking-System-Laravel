@@ -28,7 +28,12 @@
             </div>
             <div id="sales-info">
                 <div>
-                    <button>Add to sales order</button>
+                    <a href="{{  route('view-add-sale') }}">
+                        <button>Create sales order</button>
+                    </a>
+                    <a href="{{  route('view-add-sales-detail', ['product'=>$product]) }}">
+                        <button>Add to sales order</button>
+                    </a>
                     <h3>Buying price: <?php echo $product->buying_price ?></h3>
                     <h3>Selling price: <?php echo $product->selling_price ?></h3>
     
@@ -68,6 +73,7 @@
                             <th>Purchase no.</th>
                             <th>Purchase status</th>
                             <th>Supplier</th>
+                            <th>Is received?</th>
                             <th>Quantity</th>
                             <th>Purchase date</th>
                             <th>Completion date</th>
@@ -80,6 +86,7 @@
                             <th>Purchase no.</th>
                             <th>Purchase status</th>
                             <th>Supplier</th>
+                            <th>Is received?</th>
                             <th>Quantity</th>
                             <th>Purchase date</th>
                             <th>Completion date</th>
@@ -97,6 +104,7 @@
                             </td>
                             <td><?php echo $pd->purchase_status ?></td>
                             <td><?php echo $pd->company_name ?></td>
+                            <td><?php echo $pd->is_received==true ? "Yes" : "No" ?></td>
                             <td><?php echo $pd->quantity ?></td>
                             <td><?php echo $pd->purchase_date ?></td>
                             <td><?php echo $pd->completion_date ?></td>

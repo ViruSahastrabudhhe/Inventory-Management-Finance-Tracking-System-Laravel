@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Purchase;
 use App\Models\Purchase;
 use App\Traits\PurchaseTrait;
 use App\Models\Supplier;
+use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class PurchaseController extends Controller
@@ -80,18 +82,14 @@ class PurchaseController extends Controller
         $purchase=new Purchase;
 
         date_default_timezone_set("Asia/Manila");
-        $purchase_date = date('Y-m-d');
+        $purchase_date = date('Y-m-d H:i:s');
 
-        $purchase->purchase_no=Purchase::count();
+        $purchase->purchase_no=$request->purchase_no;
         $purchase->purchase_description=$request->purchase_description;
         $purchase->purchase_date=$purchase_date;
         $purchase->target_date=$request->target_date;
         $purchase->payment_type=$request->payment_type;
-        if($request->supplier_id==null) {
-            $purchase->supplier_id=null;
-        } else {
-            $purchase->supplier_id=$request->supplier_id;
-        }
+        $purchase->supplier_id=$request->supplier_id;
         $purchase->user_id=Auth::id();
 
         $purchase->save();

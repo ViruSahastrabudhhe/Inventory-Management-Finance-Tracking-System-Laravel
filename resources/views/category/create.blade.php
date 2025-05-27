@@ -9,7 +9,7 @@
             <form action="{{ route('category.add') }}" method="POST">
                 @csrf
                 <label for="">Category name</label>
-                <input type="text" name="name" placeholder="Category name">
+                <input type="text" name="name" placeholder="Category name" required>
                 <label for="is_parent">Make parent category?</label>
                 <input type="hidden" name="is_parent" id="is_parent" value="0">
                 <input type="checkbox" name="is_parent" id="is_parent" value="1">

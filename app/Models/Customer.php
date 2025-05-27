@@ -38,4 +38,5 @@ class Customer extends Model
         $customers=Customer::where('user_id', '=', Auth::user()->id)->get();
         return $customers;
     }
+
 }

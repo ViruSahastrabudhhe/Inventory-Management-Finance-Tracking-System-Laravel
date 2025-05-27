@@ -6,15 +6,9 @@
     <div class="container">
         <div>
             <div>
-                @if ($categories->categoriesExist())
                 <a href="{{ route('view-add-product') }}">
                     <button>Add item</button>
                 </a>
-                @else
-                <a href="{{ route('view-add-category') }}">
-                    <button>Add item</button>
-                </a>
-                @endif
             </div>
 
             <div>

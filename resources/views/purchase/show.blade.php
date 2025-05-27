@@ -1,4 +1,5 @@
 @inject('purchases', \App\Models\Purchase::class)
+@inject('purchase_details', \App\Models\PurchaseDetail::class)
 
 <x-layout.authenticated>
     <x-slot:title>Purchase details</x-slot:title>
@@ -30,6 +31,11 @@
 
         <div>
             <div id="item-info">
+                <a href="{{  route('view-products') }}">
+                    <button>
+                        Browse items to add to this purchase order
+                    </button>
+                </a>
                 <table id="table">
                     <thead>
                         <tr>
@@ -37,6 +43,7 @@
                             <th>Item name</th>
                             <th>Item quantity</th>
                             <th>Item total price</th>
+                            <th>Is received?</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -45,22 +52,38 @@
                             <th>Item name</th>
                             <th>Item quantity</th>
                             <th>Item total price</th>
+                            <th>Is received?</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($purchases->getItemPurchaseDetailsPI($purchase->id) as $pd)
+                        @foreach ($purchases->getPurchaseItemDetails($purchase->id) as $pd)
                         <tr>
                             <td>
-                                <button>Edit</button>
-                                <form action="{{  route('purchase_detail.destroy', ['productID'=>$pd->product_id]) }}" method="POST">
+                                @if (empty($pd->completionDate))
+                                    <a href="{{  route('view-edit-purchase-detail', ['product'=>$pd->productID]) }}">
+                                        <button>Edit</button>
+                                    </a>
+                                    <form action="{{  route('purchase_detail.destroy', ['purchase_detail'=>$pd->pdID]) }}" method="POST">
                                     @csrf
-                                    <h3><?php echo $pd->product_id ?></h3>
-                                    <button type="submit">Delete</button>
-                                </form>
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                    @if ($pd->itemReceived==true)
+                                    @else
+                                    <form action="{{  route('purchase_detail.restock', ['product'=>$pd->productID, 'purchase_detail'=>$pd->pdID]) }}" method="POST">
+                                    @csrf
+                                        <input type="hidden" name="is_received" value="1">
+                                        <input type="hidden" name="quantity" value="{{ $pd->itemQuantity }}">
+                                        <button type="submit">Receive</button>
+                                    </form>
+                                    @endif
+                                @else
+                                {{  "-" }}
+                                @endif
                             </td>
-                            <td><?php echo $pd->name ?></td>
-                            <td><?php echo $pd->quantity ?></td>
-                            <td><?php echo $pd->total ?></td>
+                            <td><?php echo $pd->itemName ?></td>
+                            <td><?php echo $pd->itemQuantity ?></td>
+                            <td><?php echo $pd->itemTotalPrice ?></td>
+                            <td><?php echo $pd->itemReceived==true ? "Yes" : "No"; ?></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -76,12 +99,8 @@
                 <h3>Supplier: <?php echo $purchase->getPurchaseSupplierName($purchase->id) ?></h3>
                 <h3>Payment type: <?php echo $purchase->payment_type ?></h3>
                 <h3>Purchase date: <?php echo $purchase->purchase_date ?></h3>
-                <h3>Target date: <?php echo $purchase->target_date ?></h3>
-                @if ($purchase->completion_date==null)
-                <h3>Completion date: <?php echo "-" ?></h3>
-                @else
-                <h3>Completion date: <?php echo $purchase->completion_date ?></h3>
-                @endif
+                <h3>Target date: <?php echo $purchase->target_date ?? "-" ?></h3>
+                <h3>Completion date: <?php echo $purchase->completion_date ?? "-" ?></h3>
             </div>
         </div>
     </div>

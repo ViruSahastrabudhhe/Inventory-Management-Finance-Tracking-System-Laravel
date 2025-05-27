@@ -72,12 +72,7 @@
                                 @csrf
                                     <button type="submit">Delete</button>
                                 </form>
-                                <form action="{{ route('sales_detail.destock', ['product'=>$sd->productID, 'order_detail'=>$sd->odID]) }}" method="POST">
-                                @csrf
-                                    <input type="hidden" name="quantity" value="{{ $sd->itemQuantity }}">
-                                    <input type="hidden" name="is_delivered" value="{{ $sd->isDelivered }}">
-                                    <button type="submit">Deliver items</button>
-                                </form>
+
                             </td>
                             <td><?php echo $sd->itemName ?></td>
                             <td><?php echo $sd->itemQuantity ?></td>
